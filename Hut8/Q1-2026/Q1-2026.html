@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Stratégique Hut 8 Corp - Q1 2026 - PARTIE 1</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f0f9ff; 
+            color: #1e293b; 
+            line-height: 1.6; 
+            margin: 0; 
+            padding: 20px; 
+            font-size: 9.5pt; 
+        }
+
+        .dashboard-wrapper { max-width: 950px; margin: 0 auto; }
+
+        header { 
+            background-color: #0f172a; 
+            color: #ffffff; 
+            padding: 30px; 
+            margin-bottom: 25px; 
+            border-left: 6px solid #3b82f6; 
+        }
+
+        h1 { margin: 0; font-size: 16pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        h2 { 
+            background-color: #0f172a; 
+            color: #ffffff; 
+            padding: 12px 20px; 
+            border-left: 5px solid #3b82f6; 
+            border-radius: 0 4px 4px 0; 
+            font-size: 11pt; 
+            margin: 35px 0 15px 0; 
+            text-transform: uppercase; 
+        }
+
+        h3 { color: #0f172a; font-size: 10.5pt; border-bottom: 2px solid #bae6fd; padding-bottom: 5px; margin-top: 25px; }
+
+        .card { 
+            background: #ffffff; 
+            border: 1px solid #bae6fd; 
+            padding: 25px; 
+            border-radius: 4px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02); 
+        }
+
+        /* Cartes Sémantiques */
+        .card-top-positif { border-top: 4px solid #10b981; background-color: #ecfdf5; }
+        .card-top-critique { border-top: 4px solid #ef4444; background-color: #fef2f2; }
+        .card-top-negatif { border-top: 4px solid #f97316; background-color: #fff7ed; }
+
+        /* Scores Flash */
+        .score-flash { 
+            background-color: #0f172a; 
+            color: #ffffff; 
+            padding: 20px; 
+            border-radius: 8px; 
+            display: flex; 
+            justify-content: space-around; 
+            margin-bottom: 25px; 
+            text-align: center; 
+        }
+        .score-val { font-size: 22pt; font-weight: 800; display: block; color: #3b82f6; }
+        .score-lab { font-size: 7.5pt; text-transform: uppercase; opacity: 0.8; letter-spacing: 1px; }
+
+        /* Badges */
+        .badge-massive { 
+            display: block; 
+            width: 85px; 
+            height: 85px; 
+            line-height: 85px; 
+            border-radius: 50%; 
+            color: white; 
+            font-size: 20pt; 
+            font-weight: 800; 
+            margin: 10px auto; 
+            text-align: center; 
+        }
+        .badge-excellent { background-color: #10b981; }
+        .badge-moyen { background-color: #f97316; }
+        .badge-alerte { background-color: #ef4444; }
+
+        /* Verdict Final Dynamique */
+        .verdict-final { padding: 25px; border-radius: 8px; margin: 30px 0; font-weight: 700; text-align: center; width: 100%; }
+        .verdict-positif { background-color: #ecfdf5 !important; border: 2px solid #10b981 !important; color: #064e3b !important; }
+        .verdict-negatif { background-color: #fff7ed !important; border: 2px solid #f97316 !important; color: #7c2d12 !important; }
+        .verdict-critique { background-color: #fef2f2 !important; border: 2px solid #ef4444 !important; color: #7f1d1d !important; }
+
+        /* Tableaux */
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 8pt; background: white; }
+        th { background-color: #0f172a; color: white; padding: 12px; text-align: left; text-transform: uppercase; }
+        td { padding: 10px; border-bottom: 1px solid #bae6fd; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+        .num { text-align: right; font-weight: 700; }
+
+        /* Insight Box */
+        .insight-box { background-color: #dbeafe; border: 1px solid #2563eb; color: #1e3a8a; padding: 18px; margin: 15px 0; font-weight: 800; border-radius: 4px; }
+
+        /* Typographie et Listes */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+        .text-positif { color: #10b981; font-weight: 700; }
+        .text-critique { color: #ef4444; font-weight: 700; }
+        .text-negatif { color: #f97316; font-weight: 700; }
+        p { margin-bottom: 12px; }
+        ul { list-style: none; padding-left: 0; margin-top: 10px; }
+        li { margin-bottom: 10px; position: relative; padding-left: 20px; }
+        li::before { content: '■'; color: #3b82f6; position: absolute; left: 0; }
+    </style>
+</head>
+<body>
+<div class="dashboard-wrapper">
+    <header>
+        <h1>Analyse Stratégique et Opérationnelle de Hut 8 Corp : La Convergence de l'Énergie, de l'Infrastructure Numérique et de l'Intelligence Artificielle</h1>
+    </header>
+
+    <div class="score-flash">
+        <div class="score-item">
+            <span class="score-lab">Croissance Revenus</span>
+            <span class="score-val"><span class="text-positif">+226 %</span></span>
+        </div>
+        <div class="score-item">
+            <span class="score-lab">Marge Brute T1 26</span>
+            <span class="score-val"><span class="text-positif">64,0 %</span></span>
+        </div>
+        <div class="score-item">
+            <span class="score-lab">Pipeline Développement</span>
+            <span class="score-val">8 375 MW</span>
+        </div>
+    </div>
+
+    <h2>RÉSUMÉ</h2>
+    <div class="card">
+        <p>L’évolution de Hut 8 Corp au cours des deux dernières années représente l'une des transformations les plus audacieuses et les plus structurées du secteur des infrastructures numériques contemporaines.</p>
+        
+        <p>Initialement perçue comme une entreprise de minage de Bitcoin à grande échelle, Hut 8 a entamé une mue profonde pour devenir une plateforme d'infrastructure énergétique intégrée, capable de répondre aux besoins croissants en calcul intensif, notamment pour l'intelligence artificielle (IA) et le calcul haute performance (HPC).</p>
+        
+        <p>Cette mutation stratégique s'appuie sur une conviction fondamentale : dans un monde où la demande de calcul explose, le contrôle de l'accès à l'énergie à grande échelle constitue l'avantage concurrentiel ultime.</p>
+        
+        <p>Sous la direction d'Asher Genoot, nommé PDG le <span class="text-neutre">7 février 2024</span>, l'entreprise a adopté une approche dite « power-first » (l'énergie d'abord), privilégiant l'acquisition et le développement d'actifs énergétiques critiques avant même la sélection des technologies de calcul.</p>
+        
+        <p>Cette vision a permis à l'entreprise de constituer un pipeline de développement de <span class="text-positif">8 375 MW</span>, la positionnant comme un acteur incontournable de la transition entre le minage de crypto-actifs et l'hébergement de charges de travail pour l'IA hyperscale.</p>
+    </div>
+
+    <h2>Vision Stratégique et Transformation du Modèle d'Affaires</h2>
+    <div class="card">
+        <p>La transformation de Hut 8 ne se limite pas à un changement de terminologie ; elle reflète une refonte complète de la hiérarchie de la valeur au sein de l'organisation.</p>
+        
+        <p>L'entreprise structure désormais ses opérations selon trois couches d'infrastructure distinctes, conçues pour capturer la valeur à chaque étape de la chaîne de production numérique.</p>
+
+        <h3>La Philosophie "Power-First" et les Trois Couches de l'Infrastructure</h3>
+        <p>La direction de Hut 8 part du principe que le matériel de calcul (les puces) devient obsolète plus rapidement que l'infrastructure physique et l'accès à l'énergie.</p>
+        
+        <p>En conséquence, le capital est alloué en priorité à la sécurisation des interconnexions, des sous-stations et des actifs de production d'énergie, créant ainsi une barrière à l'entrée quasi-insurmontable dans les marchés tendus.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Couche d'Infrastructure</th>
+                    <th>Désignation</th>
+                    <th>Description des Actifs et Activités</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Couche 1.0</strong></td>
+                    <td>Énergie (Power)</td>
+                    <td>Acquisition et gestion d'actifs de production, de sous-stations, et sécurisation de droits d'interconnexion massifs.</td>
+                </tr>
+                <tr>
+                    <td><strong>Couche 2.0</strong></td>
+                    <td>Infrastructure Numérique</td>
+                    <td>Conception et exploitation de centres de données hautement spécialisés (liquide/air) pour l'IA et le HPC.</td>
+                </tr>
+                <tr>
+                    <td><strong>Couche 3.0</strong></td>
+                    <td>Calcul (Compute)</td>
+                    <td>Monétisation de la puissance de calcul via le minage de Bitcoin (ABTC), le Cloud GPU (Highrise AI) et les services managés.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="insight-box">
+            L'analyse de cette structure révèle une volonté de désensibiliser le bilan de l'entreprise aux fluctuations extrêmes du prix du Bitcoin en migrant progressivement vers des contrats de location à long terme avec des contreparties de qualité investissement (Investment Grade).
+        </div>
+
+        <p>Ce pivot vers le « Digital Infrastructure » (Couche 2.0) est illustré par les projets River Bend et Beacon Point, qui marquent l'entrée de Hut 8 dans l'ère de l'IA hyperscale.</p>
+    </div>
+
+    <h2>Le Leadership d'Asher Genoot et la Nouvelle Culture d'Exécution</h2>
+    <div class="card">
+        <p>Depuis la prise de fonction d'Asher Genoot, l'entreprise a connu une appréciation boursière de plus de <span class="text-positif">1 000 %</span> au <span class="text-neutre">4 mai 2026</span>, passant d'un cours de <span class="text-neutre">6,77 $</span> à un niveau proche de ses sommets historiques.</p>
+        
+        <p>Ce succès est attribué à une culture de discipline financière rigoureuse et à une exécution transparente.</p>
+        
+        <p>La direction a délibérément choisi de simplifier le bilan en cédant des actifs non stratégiques, tels que le portefeuille de centrales électriques au gaz naturel en Ontario, pour se concentrer sur des projets à plus forte valeur ajoutée.</p>
+        
+        <p>Cette approche « premier principe » (first principles) consiste à décomposer chaque décision d'investissement en fonction de son efficacité en capital et de sa capacité à générer des flux de trésorerie durables.</p>
+    </div>
+
+    <h2>Analyse de la Performance Financière au Premier Trimestre 2026</h2>
+    <div class="card">
+        <p>Les résultats financiers du premier trimestre 2026 témoignent d'une croissance explosive des revenus, bien que le résultat net reste fortement influencé par la volatilité inhérente aux actifs numériques détenus au bilan.</p>
+
+        <h3>Croissance des Revenus et Expansion des Marges</h3>
+        <p>Hut 8 a rapporté des revenus de <span class="text-positif">71,0 millions de dollars</span> pour le T1 2026, soit une augmentation spectaculaire de <span class="text-positif">226 %</span> par rapport aux 21,8 millions de dollars du même trimestre de l'année précédente.</p>
+        
+        <p>Cette performance est principalement attribuable à la montée en puissance du segment Compute, qui a bénéficié de la mise à niveau massive de la flotte de mineurs effectuée en 2025 et de l'amélioration de l'efficacité opérationnelle sur les sites de Salt Creek et Medicine Hat.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Métrique Financière (en milliers USD)</th>
+                    <th class="num">T1 2026</th>
+                    <th class="num">T1 2025</th>
+                    <th class="num">Variation (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Revenu Total</td><td class="num">71 017</td><td class="num">21 815</td><td class="num text-positif">+225,5 %</td></tr>
+                <tr><td>Coût du Revenu (hors dépréciation)</td><td class="num">25 548</td><td class="num">18 659</td><td class="num text-negatif">+36,9 %</td></tr>
+                <tr><td>Marge Brute (%)</td><td class="num">64,0 %</td><td class="num">14,5 %</td><td class="num text-positif">+49,5 pts</td></tr>
+                <tr><td>Perte Nette Attribuable à Hut 8</td><td class="num">(219 776)</td><td class="num">(134 319)</td><td class="num text-critique">-63,6 %</td></tr>
+                <tr><td>Perte par Action (EPS)</td><td class="num">(1,98 $)</td><td class="num">(1,40 $)*</td><td class="num text-critique">-41,4 %</td></tr>
+            </tbody>
+        </table>
+
+        <p>L'expansion de la marge brute, passée de <span class="text-neutre">14 %</span> à <span class="text-positif">64 %</span> en un an, est un indicateur crucial de l'amélioration de l'effet de levier opérationnel.</p>
+        
+        <p>Elle démontre que l'entreprise parvient à accroître ses revenus de calcul de manière bien plus rapide que ses coûts variables d'énergie et de maintenance, grâce à l'utilisation de mineurs de nouvelle génération et à une gestion optimisée de l'approvisionnement électrique.</p>
+
+        <h3>L'Impact des Réajustements de Valeur des Actifs Numériques</h3>
+        <p>Malgré cette performance opérationnelle robuste, Hut 8 a enregistré une perte nette de <span class="text-critique">253,1 millions de dollars</span> pour le trimestre.</p>
+        
+        <p>Cette perte est presque exclusivement due à des éléments non monétaires (non-cash), notamment <span class="text-critique">295,7 millions de dollars</span> de pertes latentes sur les actifs numériques (mark-to-market).</p>
+        
+        <p>Ces réajustements comptables reflètent la baisse du cours du Bitcoin durant le trimestre, illustrant la sensibilité persistante du résultat net aux marchés des crypto-actifs, même si l'activité d'infrastructure physique progresse.</p>
+        
+        <p>L'EBITDA ajusté, qui s'établit à une perte de <span class="text-critique">250,5 millions de dollars</span>, inclut également cet impact massif des pertes sur actifs numériques.</p>
+    </div>
+
+    <h2>Le Pivot vers l'IA : River Bend et Beacon Point</h2>
+    <div class="card">
+        <p>Le cœur de la thèse d'investissement actuelle sur Hut 8 réside dans sa capacité à commercialiser ses réserves d'énergie pour l'intelligence artificielle hyperscale.</p>
+        
+        <p>L'entreprise a récemment franchi des étapes historiques avec deux campus majeurs qui redéfinissent son profil de revenus futurs.</p>
+
+        <h3>Beacon Point : Une Usine d'IA à l'Échelle du Gigawatt</h3>
+        <p>L'annonce de la commercialisation de la phase 1 du campus Beacon Point, au Texas, marque un tournant pour l'industrie.</p>
+        
+        <p>Ce projet, conçu selon l'architecture de référence NVIDIA DSX, est l'un des plus importants contrats de location jamais signés par un acteur issu du minage de Bitcoin.</p>
+        
+        <ul>
+            <li><strong>Capacité IT de la Phase 1 :</strong> <span class="text-positif">352 MW</span> (sur un potentiel total de 1 GW sur le campus).</li>
+            <li><strong>Valeur du Contrat de Base :</strong> <span class="text-positif">9,8 milliards de dollars</span> sur une durée initiale de 15 ans.</li>
+            <li><strong>Structure Contractuelle :</strong> Bail triple net (Triple-Net Lease) avec une clause de « Take-or-Pay », garantissant des flux de trésorerie prévisibles et protégeant Hut 8 contre les variations de coûts.</li>
+            <li><strong>Options de Renouvellement :</strong> Trois périodes de 5 ans, pouvant porter la valeur totale du contrat à plus de <span class="text-positif">25 milliards de dollars</span>.</li>
+            <li><strong>Contrepartie :</strong> Une entreprise à haute cote de crédit (Investment Grade), identifiée comme un hyperscaler de premier plan.</li>
+        </ul>
+
+        <p>Ce contrat est assorti d'un indexateur annuel de <span class="text-positif">3 %</span>, ce qui permet de protéger le rendement réel contre l'inflation à long terme.</p>
+
+        <h3>River Bend : L'Innovation Financière au Service de la Croissance</h3>
+        <p>Le campus River Bend, situé en Louisiane, constitue le premier grand projet d'IA de Hut 8. D'une capacité de <span class="text-positif">330 MW</span>, il a servi de laboratoire pour tester un nouveau modèle de financement non dilutif.</p>
+        
+        <p>En avril 2026, Hut 8 a clôturé une émission de <span class="text-positif">3,25 milliards de dollars</span> de billets sécurisés de premier rang (Senior Secured Notes) pour financer River Bend.</p>
+        
+        <ul>
+            <li><strong>Notation Investment Grade :</strong> Notée BBB- par S&P et Fitch, témoignant de la solidité des contrats de location.</li>
+            <li><strong>Ratio Prêt/Coût (LTC) :</strong> Le financement couvre <span class="text-positif">95 %</span> du coût du projet.</li>
+            <li><strong>Recyclage du Capital :</strong> Hut 8 a pu récupérer <span class="text-positif">184 millions de dollars</span> de fonds propres déjà déployés.</li>
+        </ul>
+
+        <p>Ce campus est loué à Fluidstack, avec un backstop financier de <span class="text-positif">Google</span> pour les paiements de loyer sur la période initiale de 15 ans.</p>
+    </div>
+<h2>Segment Compute : Le Rôle Stratégique du Minage de Bitcoin</h2>
+    <div class="card">
+        <p>Bien que l'IA représente l'avenir, le minage de Bitcoin reste une composante vitale du modèle Hut 8, servant de moteur de liquidité et de mécanisme d'optimisation de l'énergie en attendant la livraison des halls de données IA.</p>
+
+        <h3>La Filiale American Bitcoin Corp (ABTC)</h3>
+        <p>Hut 8 a structuré son activité de minage au sein d'American Bitcoin Corp (ABTC), une filiale détenue majoritairement qui a été introduite en bourse en 2025. Cette structure permet d'isoler les risques liés à la volatilité du Bitcoin tout en permettant à ABTC de lever ses propres capitaux de manière indépendante via son programme d'offre d'actions au marché (ATM) de <span class="text-positif">2,1 milliards de dollars</span>.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Métriques Opérationnelles - ABTC</th>
+                    <th class="num">T1 2026</th>
+                    <th class="num">T4 2025</th>
+                    <th class="num">Variation (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Bitcoin Minés</td><td class="num">817</td><td class="num">783</td><td class="num text-positif">+4,3 %</td></tr>
+                <tr><td>Hashrate Opérationnel (EH/s)</td><td class="num">25,0</td><td class="num">11,2</td><td class="num text-positif">+123,2 %</td></tr>
+                <tr><td>Efficacité de la Flotte (J/TH)</td><td class="num">14,1</td><td class="num">20,0</td><td class="num text-positif">+29,5 %</td></tr>
+                <tr><td>Coût pour Miner 1 BTC (USD)</td><td class="num">36 200 $</td><td class="num">46 900 $</td><td class="num text-positif">-22,8 %</td></tr>
+            </tbody>
+        </table>
+
+        <p>L'amélioration radicale de l'efficacité de la flotte, passée de 20,0 J/TH à 14,1 J/TH, est le résultat direct de l'acquisition de <span class="text-neutre">11 298</span> mineurs de nouvelle génération auprès de Bitmain au début de 2026. Ces mineurs permettent à l'entreprise de rester compétitive malgré l'augmentation de la difficulté du réseau.</p>
+
+        <h3>Dynamique du Hashprice et Stratégie d'Accumulation</h3>
+        <p>Le « hashprice » a atteint des niveaux historiquement bas à la fin de 2025, autour de <span class="text-negatif">36-38 $/PH/s/jour</span>. Dans ce contexte de compression des marges, seuls les mineurs disposant d'un accès à une énergie bon marché et d'un matériel ultra-performant peuvent survivre.</p>
+        
+        <p>Hut 8, grâce à son intégration verticale, parvient à maintenir un coût marginal de production de <span class="text-positif">36 200 $</span> par Bitcoin, bien en dessous du prix de marché actuel, ce qui lui permet de continuer à accumuler des actifs numériques de manière rentable. Au <span class="text-neutre">31 mars 2026</span>, l'entreprise détenait <span class="text-positif">16 331 Bitcoins</span>, une réserve de valeur stratégique qui lui offre une flexibilité financière considérable.</p>
+    </div>
+
+    <h2>Bilan, Liquidité et Ingénierie Financière</h2>
+    <div class="card">
+        <p>La gestion du capital chez Hut 8 est passée d'un mode de survie à un mode d'expansion stratégique, caractérisé par une utilisation intelligente de la dette non recouvrable et une gestion proactive de la dilution.</p>
+
+        <h3>Structure de la Dette et Désendettement</h3>
+        <p>L'un des piliers de la stratégie de Sean Glennan est de s'assurer que la dette est cantonnée au niveau des actifs (Project Finance) plutôt qu'au niveau de la société mère.</p>
+        <ul>
+            <li><strong>Note Convertible Coatue :</strong> D'un montant de <span class="text-neutre">150 millions de dollars</span>, c'est la seule dette restante avec recours au niveau de la société mère. Elle est actuellement largement « in the money » et le rachat est prévu dès la fin du T2 2026.</li>
+            <li><strong>Facilités de Crédit Bitcoin :</strong> Hut 8 a refinancé sa facilité de crédit de <span class="text-neutre">200 millions de dollars</span> auprès de FalconX, réduisant le taux d'intérêt de <span class="text-negatif">9 %</span> à <span class="text-positif">7 %</span>. Ce refinancement a permis de libérer environ 3 300 Bitcoins qui servaient de garantie.</li>
+            <li><strong>Notes River Bend :</strong> Les <span class="text-positif">3,25 milliards de dollars</span> de dette obligataire sont strictement sans recours pour la société mère.</li>
+        </ul>
+
+        <h3>Gestion du Capital et Programmes ATM</h3>
+        <p>Pour soutenir sa croissance rapide, l'entreprise a mis en place un programme d'offre d'actions au marché (ATM) de <span class="text-neutre">1,0 milliard de dollars</span>. À la fin de l'année 2025, <span class="text-positif">183,4 millions de dollars</span> avaient été levés à un prix moyen de <span class="text-positif">45,62 $</span>.</p>
+        
+        <p>La rémunération à base d'actions (SBC) a atteint <span class="text-neutre">63,9 millions de dollars</span> au T1 2026. Bien que ce montant semble élevé, il est lié à des unités de performance (PSU) alignant ainsi les intérêts de la direction avec ceux des actionnaires à long terme.</p>
+    </div>
+
+    <h2>Analyse Comparative : Hut 8 face à Riot et Marathon</h2>
+    <div class="card">
+        <p>La transition vers l'infrastructure d'IA n'est pas exclusive à Hut 8, mais l'entreprise se distingue par la rapidité et la structure de sa commercialisation.</p>
+
+        <h3>Comparaison avec Riot Platforms</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Paramètre (T1 2026)</th>
+                    <th class="num">Hut 8 Corp</th>
+                    <th class="num">Riot Platforms</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Revenu Total</td><td class="num">71,0 M$</td><td class="num">167,2 M$</td></tr>
+                <tr><td>Perte Nette</td><td class="num">253,1 M$</td><td class="num">500,5 M$</td></tr>
+                <tr><td>Revenu "Data Center"</td><td class="num">1,3 M$</td><td class="num">33,2 M$</td></tr>
+                <tr><td>Hashrate Opérationnel</td><td class="num">25,0 EH/s</td><td class="num">42,5 EH/s</td></tr>
+            </tbody>
+        </table>
+        <div class="insight-box">
+            Alors que Riot génère actuellement plus de revenus immédiats dans le segment des centres de données, Hut 8 a opté pour un modèle de revenus à plus long terme et à plus haute marge via ses baux triple nets.
+        </div>
+
+        <h3>Comparaison avec Marathon Digital (MARA)</h3>
+        <p>Marathon a récemment annoncé l'acquisition de Long Ridge Energy & Power pour <span class="text-negatif">1,52 milliard de dollars</span>, ajoutant une centrale au gaz de 505 MW et un pipeline de développement de 1 GW. Cette transaction marque la volonté de Marathon de posséder ses propres sources d'énergie, suivant ainsi le modèle de Hut 8.</p>
+        <p>Toutefois, Marathon reste pénalisée par une structure de coûts plus élevée et une dépendance plus forte à la vente de ses Bitcoins pour financer ses opérations, tandis que Hut 8 privilégie le financement par projet non dilutif.</p>
+    </div>
+
+    <h2>Facteurs de Risque et Analyse de Sensibilité</h2>
+    <div class="card">
+        <div class="grid-2">
+            <div class="card-top-negatif card" style="margin-bottom:0;">
+                <h3>Risques Énergétiques et Réglementaires</h3>
+                <p>Le modèle « power-first » dépend de la stabilité des marchés. Au Texas, l'adoption de la loi <span class="text-neutre">SB 6</span> impose de nouvelles contraintes, notamment l'obligation de se déconnecter à distance pour stabiliser le réseau ERCOT.</p>
+            </div>
+            <div class="card-top-negatif card" style="margin-bottom:0;">
+                <h3>Dépendance Fournisseurs et NVIDIA</h3>
+                <p>L'exécution des projets River Bend et Beacon Point repose sur la livraison en temps voulu des équipements et des puces <span class="text-neutre">NVIDIA</span>. Les tensions sur la chaîne d'approvisionnement mondiale et la concurrence intense pour les GPU pourraient retarder la livraison prévue pour le T2 2027.</p>
+            </div>
+        </div>
+        <p style="margin-top:20px;"><strong>Modélisation de l'Impact Bitcoin :</strong> Avec <span class="text-neutre">16 331 Bitcoins</span> détenus, une baisse de <span class="text-critique">10 000 $</span> du prix entraîne une perte latente supplémentaire de <span class="text-critique">163 millions de dollars</span>. La concentration des revenus sur un petit nombre de contreparties hyperscale crée également un risque de concentration géographique et client.</p>
+    </div>
+
+    <h2>🧭 Évaluation Quality Value</h2>
+    <div class="grid-2" style="grid-template-columns: repeat(4, 1fr); text-align:center;">
+        <div><div class="badge-massive badge-excellent">5/5</div><strong>Vision</strong></div>
+        <div><div class="badge-massive badge-moyen">3/5</div><strong>Résultats Net</strong></div>
+        <div><div class="badge-massive badge-excellent">5/5</div><strong>Exécution</strong></div>
+        <div><div class="badge-massive badge-excellent">4/5</div><strong>Bilan</strong></div>
+    </div>
+
+    <div class="grid-2">
+        <div class="card card-top-positif">
+            <h3>3 Forces majeures :</h3>
+            <ul>
+                <li>Carnet de commandes record de 16,8 Md$ dans l'IA.</li>
+                <li>Accès privilégié à l'énergie (Pipeline de 8,4 GW).</li>
+                <li>Modèle de financement non dilutif et sans recours.</li>
+            </ul>
+        </div>
+        <div class="card card-top-critique">
+            <h3>3 Faiblesses :</h3>
+            <ul>
+                <li>Volatilité extrême du résultat net liée au Bitcoin.</li>
+                <li>Risque de concentration client (Hyperscalers).</li>
+                <li>Risque d'exécution lié à la livraison des puces NVIDIA.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="verdict-final verdict-positif">
+        🚀 VERDICT DE L'INITIÉ : INSOLENT. Hut 8 Corp s'est positionnée à l'avant-garde d'une transformation industrielle majeure. La validation du modèle par le marché du crédit est un signal fort que Hut 8 n'est plus seulement une entreprise de cryptomonnaie, mais un développeur d'infrastructure énergétique de classe mondiale. Si l'exécution suit, l'entreprise bâtit une plateforme générationnelle.
+    </div>
+
+    <h2>📋 OBJECTIFS CLÉS À SURVEILLER (2026-2027)</h2>
+    <div class="card card-top-positif">
+        <ul>
+            <li><strong>Livraison de River Bend (T2 2027) :</strong> La mise en service réussie pour Anthropic sera le catalyseur ultime pour une revalorisation de l'action vers des multiples de type REIT.</li>
+            <li><strong>Conversion de la Note Coatue (Juin 2026) :</strong> L'élimination de cette dette au niveau de la société mère marquera la fin de la restructuration du bilan.</li>
+            <li><strong>Expansion du Pipeline de 8,4 GW :</strong> La capacité de Hut 8 à convertir ses sites en contrats d'exclusivité déterminera l'échelle de l'entreprise à l'horizon 2030.</li>
+        </ul>
+    </div>
+
+    <div class="footer-insti">
+        CONFIDENTIEL – USAGE INTERNE STRICT | Analyse par MIKA Quality/Value | Généré le 8 mai 2026
+    </div>
+</div>
+</body>
+</html>
