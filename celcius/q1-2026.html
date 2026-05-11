@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard d'Analyse Financière - CELSIUS</title>
+    <style>
+        /* ==========================================================================
+           RESET & VARIABLES
+           ========================================================================== */
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        :root {
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --color-neutral: #0f172a;
+            --color-positive: #16a34a;
+            --color-critical: #dc2626;
+            --color-warning: #ea580c;
+            --border-color: #e2e8f0;
+            --brand-blue: #1e3a8a;
+            --brand-accent: #2563eb;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            font-size: 15px;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        p { margin-top: 0; margin-bottom: 20px; }
+        
+        /* ==========================================================================
+           TYPOGRAPHIE & COULEURS IN-LINE
+           ========================================================================== */
+        .text-neutral { font-weight: 600; color: var(--color-neutral); }
+        .text-positive { font-weight: 700; color: var(--color-positive); }
+        .text-critical { font-weight: 700; color: var(--color-critical); }
+        .text-warning { font-weight: 700; color: var(--color-warning); }
+
+        h2 {
+            background-color: var(--color-neutral);
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 50px 0 25px 0;
+            padding: 14px 20px;
+            border-left: 5px solid var(--brand-accent);
+            border-radius: 0 4px 4px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h3 {
+            font-size: 16px;
+            color: var(--color-neutral);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        /* ==========================================================================
+           COMPOSANTS GLOBAUX (CARDS)
+           ========================================================================== */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .card-bordered-top {
+            border-top: 4px solid var(--brand-accent);
+        }
+
+        /* Listes customisées (Carrés bleus) */
+        ul.custom-bullets {
+            list-style: none;
+            padding-left: 20px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        ul.custom-bullets li {
+            position: relative;
+            margin-bottom: 12px;
+        }
+        ul.custom-bullets li::before {
+            content: "\25A0"; /* Carré plein */
+            color: var(--brand-accent);
+            position: absolute;
+            left: -20px;
+            font-size: 12px;
+            top: 2px;
+        }
+
+        /* ==========================================================================
+           HERO & FLASH SCORES (TOP BANDEAU)
+           ========================================================================== */
+        .hero-header {
+            background-color: var(--color-neutral);
+            color: #ffffff;
+            padding: 60px 20px 80px 20px;
+            text-align: center;
+        }
+        .hero-surtitle {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #94a3b8;
+            margin-bottom: 15px;
+        }
+        .hero-title {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin: 0 0 15px 0;
+            color: #ffffff;
+        }
+        .hero-subtitle {
+            font-size: 18px;
+            color: #cbd5e1;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .flash-bandeau {
+            max-width: 1100px;
+            margin: -40px auto 40px auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 0 20px;
+        }
+        .flash-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid var(--color-positive); /* Vert par défaut, surchargé in-line si besoin */
+        }
+        .flash-card.border-critical { border-top-color: var(--color-critical); }
+        .flash-value {
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+        .flash-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--color-neutral);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+        .flash-context {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* ==========================================================================
+           TABLEAUX FINANCIERS
+           ========================================================================== */
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 30px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        th {
+            background-color: var(--color-neutral);
+            color: #ffffff;
+            text-align: left;
+            padding: 14px 20px;
+            font-weight: 500;
+        }
+        td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+        tr:nth-child(even) td { background-color: #f8fafc; }
+        tr:last-child td { border-bottom: none; }
+        .right-align { text-align: right; }
+
+        /* ==========================================================================
+           GRANDS KPI (SOUS LE TABLEAU)
+           ========================================================================== */
+        .big-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .big-kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .big-kpi-value {
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        .big-kpi-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ==========================================================================
+           MATRICE DES RISQUES & FORCES/FAIBLESSES
+           ========================================================================== */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .risk-card { border-top-width: 4px; border-top-style: solid; }
+        .risk-major { border-top-color: var(--color-critical); background-color: #fef2f2; }
+        .risk-secondary { border-top-color: var(--color-warning); background-color: #fffbeb; }
+        .risk-reassurance { border-top-color: var(--color-positive); background-color: #f0fdf4; grid-column: 1 / -1; }
+        
+        .risk-header {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-neutral);
+            margin-bottom: 15px;
+        }
+        .dot {
+            height: 14px; width: 14px; border-radius: 50%; display: inline-block; margin-right: 10px;
+        }
+        .dot-red { background-color: var(--color-critical); }
+        .dot-orange { background-color: var(--color-warning); }
+        .dot-green { background-color: var(--color-positive); }
+
+        .ff-forces { border-top: 4px solid var(--color-positive); }
+        .ff-faiblesses { border-top: 4px solid var(--color-critical); }
+
+        /* ==========================================================================
+           SCORES / BADGES CIRCULAIRES
+           ========================================================================== */
+        .scores-grid {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        .score-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            width: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--border-color); /* Dynamique via classes */
+        }
+        .score-card.score-good { border-top-color: var(--color-positive); }
+        .score-card.score-bad { border-top-color: var(--color-critical); }
+        .score-card.score-mid { border-top-color: var(--color-warning); }
+        
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--bg-page);
+            border: 4px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        .score-val { font-size: 32px; font-weight: 800; line-height: 1; }
+        .score-lbl-inner { font-size: 10px; color: var(--text-muted); font-weight: 700; letter-spacing: 1px; margin-top: 4px; }
+        .score-title { font-size: 14px; font-weight: 700; color: var(--color-neutral); text-transform: uppercase; text-align: center; }
+
+        /* ==========================================================================
+           VERDICTS & INSIGHTS DYNAMIQUES
+           ========================================================================== */
+        .insight-box {
+            padding: 24px;
+            margin: 30px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--border-color);
+            background-color: var(--bg-card);
+        }
+        .insight-box p:last-child { margin-bottom: 0; }
+        
+        .insight-positive { background-color: #f0fdf4; border-left-color: var(--color-positive); color: #166534; }
+        .insight-warning { background-color: #fffbeb; border-left-color: var(--color-warning); color: #92400e; }
+        .insight-critical { background-color: #fef2f2; border-left-color: var(--color-critical); color: #991b1b; }
+        
+        .verdict-final {
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 40px;
+            font-size: 16px;
+            border: 2px solid var(--color-critical);
+            background-color: #fef2f2;
+        }
+        .verdict-final-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--color-critical);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* ==========================================================================
+           CHECKLIST DE SURVEILLANCE
+           ========================================================================== */
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .checklist-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .checklist-card h3 {
+            font-size: 14px;
+            color: var(--color-neutral);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            text-transform: uppercase;
+            gap: 10px;
+        }
+        .grav-badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .bg-critical { background-color: #fee2e2; color: var(--color-critical); }
+        .bg-warning { background-color: #fef3c7; color: #b45309; }
+        .bg-info { background-color: #e0f2fe; color: #0369a1; }
+        
+        .kpi-focus-box {
+            background-color: #f8fafc;
+            border-left: 3px solid #cbd5e1;
+            padding: 14px 16px;
+            margin-top: auto;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: var(--text-main);
+            border-radius: 0 4px 4px 0;
+            font-weight: 500;
+        }
+        .checklist-deadline {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .flash-bandeau, .grid-2col, .checklist-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-header">
+        <div class="hero-surtitle">Audit Stratégique et Ingénierie Financière</div>
+        <h1 class="hero-title">CELSIUS</h1>
+        <div class="hero-subtitle">Analyse descriptive et critique des résultats Q1 2026</div>
+    </div>
+
+    <div class="flash-bandeau">
+        <div class="flash-card border-critical">
+            <div class="flash-value text-critical">+138 %</div>
+            <div class="flash-label">Croissance du CA YoY</div>
+            <div class="flash-context">Porté artificiellement par les acquisitions, masquant une croissance organique atone.</div>
+        </div>
+        <div class="flash-card border-critical">
+            <div class="flash-value text-critical">+24,2 %</div>
+            <div class="flash-label">Écart BPA GAAP / Ajusté</div>
+            <div class="flash-context">Ajustements comptables abusifs visant à masquer les frais de règlements juridiques.</div>
+        </div>
+        <div class="flash-card border-critical">
+            <div class="flash-value text-critical">832,3 M$</div>
+            <div class="flash-label">Créances Clients (AR)</div>
+            <div class="flash-context">Dépasse le chiffre d'affaires trimestriel, signalant un risque massif sur le BFR.</div>
+        </div>
+    </div>
+
+    <div class="main-container">
+
+        <div class="card card-bordered-top" style="border-top-color: var(--color-neutral);">
+            <h3>RÉSUMÉ</h3>
+            <p>Performance CA et BPA : Chiffre d'affaires à <span class="text-neutral">782,6 millions USD</span> (<span class="text-positive">+138 % YoY</span>), porté artificiellement par les acquisitions. BPA GAAP à <span class="text-neutral">0,33 USD</span> vs BPA Ajusté à <span class="text-neutral">0,41 USD</span> (écart de <span class="text-critical">+24,2 %</span> maquillant des frais juridiques).</p>
+            <p>Le chiffre "choc" : Les créances clients (Accounts Receivable) explosent à <span class="text-critical">832,3 millions USD</span>, dépassant le chiffre d'affaires total du trimestre (<span class="text-neutral">782,6 millions USD</span>), signalant un risque majeur sur la reconnaissance des revenus et le BFR.</p>
+            <p>État du Moat : Fragilisé. La marque historique CELSIUS ne croît plus que de <span class="text-critical">6 %</span> organiquement, et la marge brute s'effondre de <span class="text-critical">400 points de base</span> (<span class="text-neutral">48,3 %</span>).</p>
+        </div>
+
+        <div class="insight-box insight-critical">
+            <p><strong>Verdict flash :</strong> Une façade de croissance explosive qui masque une détérioration rapide de la rentabilité unitaire, une dépendance toxique à un seul distributeur (PepsiCo) et une cannibalisation du bilan par des acquisitions à faible marge.</p>
+        </div>
+
+        <h2>Collecte stricte des sources officielles</h2>
+        <div class="card">
+            <p>Date de l'analyse : <span class="text-neutral">11 Mai 2026</span> (Résultats publiés le 7 Mai 2026).</p>
+            <p>Documents utilisés (Section Investor Relations - Celsius Holdings) :</p>
+            <ul class="custom-bullets">
+                <li><strong>Form 10-Q</strong> (Trimestre clos le 31 mars 2026).</li>
+                <li><strong>Communiqué de presse</strong> des résultats Q1 2026.</li>
+                <li><strong>Présentation Investisseurs</strong> Q1 2026.</li>
+                <li><strong>Transcript de l'Earnings Call</strong> Q1 2026.</li>
+            </ul>
+            <p><strong>Écarts GAAP vs Non-GAAP (Alerte Manipulation) :</strong></p>
+            <ul class="custom-bullets">
+                <li>BPA : BPA GAAP <span class="text-neutral">0,33 USD</span> | BPA Ajusté (Non-GAAP) <span class="text-neutral">0,41 USD</span>. Écart : <span class="text-critical">+24,2 %</span>.</li>
+                <li>EBIT / EBITDA : Résultat d'exploitation (EBIT GAAP) <span class="text-neutral">138,99 millions USD</span> | EBITDA Ajusté (Non-GAAP) <span class="text-neutral">195,5 millions USD</span>. Écart : <span class="text-critical">+40,6 %</span>. La direction utilise cet ajustement massif pour exclure <span class="text-neutral">24,55 millions USD</span> de frais juridiques réels.</li>
+            </ul>
+        </div>
+
+        <h2>Tableaux Financiers & KPI métier</h2>
+        <p>(Devise : Millions USD / Norme : US GAAP)</p>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Indicateur</th>
+                        <th class="right-align">Valeur courante (Q1 2026)</th>
+                        <th class="right-align">Variation QoQ</th>
+                        <th class="right-align">Variation YoY</th>
+                        <th>Commentaire factuel</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CA</td>
+                        <td class="right-align"><span class="text-neutral">782,6</span></td>
+                        <td class="right-align"><span class="text-positive">+8,4 %</span></td>
+                        <td class="right-align"><span class="text-positive">+138,0 %</span></td>
+                        <td>Dopé par l'intégration complète d'Alani Nu et Rockstar.</td>
+                    </tr>
+                    <tr>
+                        <td>EBIT</td>
+                        <td class="right-align"><span class="text-neutral">138,9</span></td>
+                        <td class="right-align">Non communiqué</td>
+                        <td class="right-align"><span class="text-positive">+167,0 %</span></td>
+                        <td>Levier opérationnel post-acquisitions.</td>
+                    </tr>
+                    <tr>
+                        <td>Résultat Net</td>
+                        <td class="right-align"><span class="text-neutral">110,1</span></td>
+                        <td class="right-align"><span class="text-positive">+345,7 %</span></td>
+                        <td class="right-align"><span class="text-positive">+148,0 %</span></td>
+                        <td>Inclut <span class="text-neutral">27,4 M$</span> de charge d'impôt.</td>
+                    </tr>
+                    <tr>
+                        <td>BPA (Dilué GAAP)</td>
+                        <td class="right-align"><span class="text-neutral">0,33</span></td>
+                        <td class="right-align"><span class="text-positive">+725,0 %</span></td>
+                        <td class="right-align"><span class="text-positive">+120,0 %</span></td>
+                        <td>Fortement dilué par l'augmentation du nombre d'actions post-acquisitions.</td>
+                    </tr>
+                    <tr>
+                        <td>FCF</td>
+                        <td class="right-align"><span class="text-neutral">78,6</span> (TTM)</td>
+                        <td class="right-align">Non communiqué</td>
+                        <td class="right-align">Non communiqué</td>
+                        <td>Fortement impacté par le BFR.</td>
+                    </tr>
+                    <tr>
+                        <td>Marge Brute</td>
+                        <td class="right-align"><span class="text-neutral">48,3 %</span></td>
+                        <td class="right-align"><span class="text-positive">+90 bps</span></td>
+                        <td class="right-align"><span class="text-critical">-400 bps</span></td>
+                        <td>Dilution mécanique par Rockstar/Alani Nu.</td>
+                    </tr>
+                    <tr>
+                        <td>Marge Opérationnelle</td>
+                        <td class="right-align"><span class="text-neutral">17,7 %</span></td>
+                        <td class="right-align">Non communiqué</td>
+                        <td class="right-align"><span class="text-positive">+1,9 %</span></td>
+                        <td>Baisse relative des SG&A face au CA gonflé.</td>
+                    </tr>
+                    <tr>
+                        <td>CapEx</td>
+                        <td class="right-align">Non communiqué</td>
+                        <td class="right-align">Non communiqué</td>
+                        <td class="right-align">Non communiqué</td>
+                        <td>PP&E nets à <span class="text-neutral">96,7 M$</span>.</td>
+                    </tr>
+                    <tr>
+                        <td>Dette Nette / Equity</td>
+                        <td class="right-align"><span class="text-neutral">0,11x</span></td>
+                        <td class="right-align">Non communiqué</td>
+                        <td class="right-align">Non communiqué</td>
+                        <td>Cash (<span class="text-neutral">549,2</span>) vs Dette (<span class="text-neutral">696,5</span>) sur Equity (<span class="text-neutral">1 250,7</span>).</td>
+                    </tr>
+                    <tr>
+                        <td>ROIC (Annualisé)</td>
+                        <td class="right-align"><span class="text-critical">5,3 %</span></td>
+                        <td class="right-align">Non communiqué</td>
+                        <td class="right-align">Non communiqué</td>
+                        <td>Effondrement historique suite au capital injecté pour les rachats.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="big-kpi-grid">
+            <div class="big-kpi-card">
+                <div class="big-kpi-value text-positive">20,9 %</div>
+                <div class="big-kpi-label">Part de Marché US (Circana)</div>
+            </div>
+            <div class="big-kpi-card">
+                <div class="big-kpi-value text-critical">+6,0 %</div>
+                <div class="big-kpi-label">Croissance Org. CELSIUS</div>
+            </div>
+        </div>
+
+        <h2>Analyse géographique / segmentaire</h2>
+        <div class="card">
+            <ul class="custom-bullets">
+                <li><strong>Amérique du Nord :</strong> <span class="text-neutral">747,3 millions USD</span> (<span class="text-positive">+144 % YoY</span>). Représente <span class="text-neutral">95,5 %</span> des revenus. Croissance totalement inorganique issue des rachats.</li>
+                <li><strong>International :</strong> <span class="text-neutral">35,3 millions USD</span> (<span class="text-positive">+55 % YoY</span>). Représente à peine <span class="text-neutral">4,5 %</span> des revenus.</li>
+            </ul>
+        </div>
+        
+        <div class="insight-box insight-warning">
+            <p><strong>Identification factuelle :</strong> La zone dominante (US) masque un ralentissement organique sévère (Celsius à <span class="text-critical">+6 %</span>). Le développement international est anémique comparé aux pairs du secteur.</p>
+        </div>
+
+        <h2>Analyse du discours managérial</h2>
+        <div class="card">
+            <p><strong>Croissance structurelle :</strong> Le CEO John Fieldly évoque une "année de stabilisation" pour justifier la chute de <span class="text-critical">13 %</span> des ventes de Rockstar. La croissance de <span class="text-neutral">6 %</span> de Celsius est justifiée par une "optimisation des SKU".</p>
+            <p><strong>Marges & rentabilité :</strong> Promesse d'un retour aux marges historiques ("low 50s") reportée à fin 2026/2027.</p>
+            <p><strong>Allocation du capital :</strong> Rachats d'actions cosmétiques (<span class="text-neutral">24,1 M$</span>) alors que la dette s'élève à <span class="text-neutral">696,5 M$</span>.</p>
+            <p><strong>Risques :</strong> Le management admet une "saturation du marché" et une "volatilité des prix des matières premières".</p>
+            <hr style="border:0; border-top: 1px solid var(--border-color); margin: 20px 0;">
+            <p><strong>🎯 Bullshit Bingo & Traque des excuses :</strong> Le CFO Jarrod Langhans a invoqué le "froid hivernal dans le Nord-Est", les "coûts de protection contre le gel", la "prime de l'aluminium du Midwest" et un "rebalancement des stocks".</p>
+        </div>
+        
+        <div class="insight-box insight-critical">
+            <p><strong>Verdict Cynique :</strong> La direction accuse la météo de février pour expliquer la destruction de <span class="text-critical">400 points de base</span> de marge brute. Le terme "Sidestep" (pas de côté) est utilisé pour préparer le marché à une stagnation au prochain trimestre. Un écran de fumée classique pour masquer une intégration laborieuse et des actifs structurellement moins rentables.</p>
+        </div>
+
+        <h2>Perspectives de l'entreprise & Guidance</h2>
+        <div class="card">
+            <ul class="custom-bullets">
+                <li><strong>Marge Brute (Q2 2026) :</strong> Le CFO guide vers un "sidestep" (stagnation autour de <span class="text-neutral">48,3 %</span>). Source : Transcript Call, Q&A.</li>
+                <li><strong>Marge Brute (H2 2026) :</strong> Objectif d'un "stairstep" (retour progressif) vers les "low 50s" d'ici fin 2026. Source : Transcript Call.</li>
+            </ul>
+        </div>
+        
+        <div class="insight-box insight-warning">
+            <p><strong>Historique :</strong> C'est un profit warning déguisé. La direction repousse l'amélioration des marges de trimestre en trimestre sous couvert "d'investissements d'intégration".</p>
+        </div>
+
+        <h2>Matrice de matérialité des risques</h2>
+        <div class="grid-2col">
+            <div class="card risk-card risk-major">
+                <div class="risk-header"><span class="dot dot-red"></span> RISQUES MAJEURS (Rupture de thèse)</div>
+                <p><strong>Dépendance toxique :</strong> PepsiCo représente <span class="text-critical">59,0 %</span> du CA et <span class="text-critical">45,5 %</span> des créances. Si Pepsi tousse, Celsius meurt.</p>
+                <p><strong>Créances douteuses :</strong> <span class="text-critical">832,3 millions USD</span> d'Accounts Receivable pour <span class="text-neutral">782,6 M$</span> de CA trimestriel. Les clients ne paient pas.</p>
+            </div>
+            <div class="card risk-card risk-secondary">
+                <div class="risk-header"><span class="dot dot-orange"></span> RISQUES SECONDAIRES (Bruit opérationnel)</div>
+                <p><strong>Volatilité de l'aluminium :</strong> Pression temporaire sur les coûts d'emballage (LME).</p>
+            </div>
+            <div class="card risk-card risk-reassurance">
+                <div class="risk-header"><span class="dot dot-green"></span> POINTS DE RÉASSURANCE</div>
+                <p><strong>Liquidité :</strong> Trésorerie solide de <span class="text-positive">549,2 millions USD</span> permettant de couvrir les passifs courants immédiats sans risque de crise de solvabilité à court terme.</p>
+            </div>
+        </div>
+
+        <h2>Lecture critique chiffres vs discours</h2>
+        <p>Le management se gargarise d'une croissance de <span class="text-positive">138 %</span> du CA, mais la marque cœur (CELSIUS) ne croît que de <span class="text-critical">6 %</span>. L'EBITDA ajusté de <span class="text-neutral">195,5 M$</span> masque <span class="text-critical">24,55 M$</span> de "frais de règlement de litiges juridiques" récurrents (Strong Arm Productions) et <span class="text-neutral">88,2 M$</span> de provisions légales au bilan.</p>
+        
+        <div class="insight-box insight-critical">
+            <p><strong>Risques cachés ou sous-mentionnés :</strong> L'entreprise achète de la croissance à faible marge (Rockstar) pour maintenir l'illusion d'une hyper-croissance boursière, détruisant la rentabilité unitaire.</p>
+        </div>
+
+        <h2>Évaluation Quality Value</h2>
+        <div class="card">
+            <ul class="custom-bullets">
+                <li><strong>Business :</strong> Moat artificiel. Avantage compétitif transféré de la marque vers le distributeur (Pepsi).</li>
+                <li><strong>Management :</strong> Financiarisation de l'exécution. Priorise le volume inorganique à la rentabilité.</li>
+                <li><strong>Opérations :</strong> Dégradation sévère. Conversion FCF anémique face à l'explosion du BFR.</li>
+                <li><strong>Résilience :</strong> Dette de <span class="text-neutral">696 M$</span> gérable grâce au cash, mais profil de risque augmenté par les litiges.</li>
+            </ul>
+        </div>
+
+        <h2>Transparence & communication</h2>
+        <p>Usage abusif des mesures Non-GAAP pour exclure des litiges juridiques majeurs de l'EBITDA. Les excuses météorologiques pour justifier la baisse des marges sont indignes d'une entreprise de cette capitalisation.</p>
+        
+        <div class="scores-grid">
+            <div class="score-card score-bad">
+                <div class="score-circle">
+                    <span class="score-val text-critical">2</span>
+                    <span class="score-lbl-inner">/ 5</span>
+                </div>
+                <div class="score-title">Transparence</div>
+            </div>
+        </div>
+
+        <h2>Synthèse investisseur & Notation</h2>
+        <div class="grid-2col">
+            <div class="card ff-forces">
+                <h3>3 Forces majeures :</h3>
+                <ul class="custom-bullets">
+                    <li>Portefeuille consolidé détenant <span class="text-positive">20,9 %</span> de parts de marché.</li>
+                    <li>Trésorerie brute importante (<span class="text-positive">549,2 M$</span>).</li>
+                    <li>Effet d'échelle réduisant le poids relatif des SG&A (<span class="text-positive">30,0 %</span> vs <span class="text-neutral">36,5 %</span>).</li>
+                </ul>
+            </div>
+            <div class="card ff-faiblesses">
+                <h3>3 Faiblesses factuelles :</h3>
+                <ul class="custom-bullets">
+                    <li>Créances clients hors de contrôle (<span class="text-critical">832,3 M$</span>).</li>
+                    <li>Chute de la marque historique (<span class="text-critical">+6 %</span> seulement).</li>
+                    <li>Marges brutes en chute libre (<span class="text-critical">-400 bps</span>).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="scores-grid">
+            <div class="score-card score-bad">
+                <div class="score-circle">
+                    <span class="score-val text-critical">2</span>
+                    <span class="score-lbl-inner">SCORE</span>
+                </div>
+                <div class="score-title">Qualité Business</div>
+            </div>
+            <div class="score-card score-bad">
+                <div class="score-circle">
+                    <span class="score-val text-critical">2</span>
+                    <span class="score-lbl-inner">SCORE</span>
+                </div>
+                <div class="score-title">Qualité Résultats</div>
+            </div>
+            <div class="score-card score-bad">
+                <div class="score-circle">
+                    <span class="score-val text-critical">2</span>
+                    <span class="score-lbl-inner">SCORE</span>
+                </div>
+                <div class="score-title">Crédibilité Mgmt</div>
+            </div>
+        </div>
+
+        <div class="insight-box insight-critical">
+            <p><strong>Conclusion :</strong> La holding s'est transformée en un agrégateur de marques financiarisé. La croissance organique est morte, remplacée par du volume acheté à crédit et distribué par un tiers tout-puissant.</p>
+        </div>
+
+        <h2>Décomposition du ROIC (Efficacité réelle)</h2>
+        <div class="card">
+            <p>L'analyse de l'efficacité du capital démontre une destruction de valeur post-acquisitions.</p>
+            <ul class="custom-bullets">
+                <li><strong>NOPAT :</strong> Non communiqué explicitement sans les ajustements.</li>
+                <li><strong>Capital Investi :</strong> Saturé par l'explosion des créances et du Goodwill.</li>
+                <li><strong>Contrôle ROIC :</strong> Selon les données historiques long-terme, le ROIC a plongé à <span class="text-critical">5,3 %</span> post-acquisitions.</li>
+            </ul>
+        </div>
+        
+        <div class="insight-box insight-critical">
+            <p><strong>Verdict :</strong> Le ROIC est plombé par une rotation du capital catastrophique, elle-même détruite par l'explosion du BFR (créances clients). L'outil n'est plus efficient.</p>
+        </div>
+
+        <h2>Alchimie de l'allocation du capital</h2>
+        <p><strong>Cycle de Vie du Cash :</strong> <span class="text-critical">~31 %</span>. Alerte rouge. La conversion est désastreuse car la croissance des ventes ne se transforme pas en cash, elle reste bloquée dans les créances clients.</p>
+        <p><strong>Buybacks :</strong> <span class="text-neutral">24,1 M$</span> rachetés (<span class="text-neutral">700 000</span> actions). Une goutte d'eau purement cosmétique pour calmer les marchés.</p>
+        <p><strong>Incremental ROIC :</strong> Historiquement négatif en 2022 (<span class="text-critical">-22,6 %</span>), il a rebondi artificiellement pour s'effondrer à nouveau post-M&A. Le retour sur investissement des <span class="text-neutral">1,27 milliard USD</span> dépensés pour Alani Nu est loin d'être prouvé.</p>
+
+        <h2>Le mirage du dividende (Cash check)</h2>
+        <p>L'entreprise ne verse aucun dividende. Le management ne sait réinvestir le capital que dans des acquisitions dilutives pour gonfler le chiffre d'affaires. Ligne factuelle sans anomalie de rendement.</p>
+
+        <h2>Détecteur de fumée (Qualité comptable)</h2>
+        <p><strong>Variation du BFR :</strong> ALERTE MAJEURE. Les créances clients (Accounts Receivable) s'élèvent à <span class="text-critical">832,3 millions USD</span>, soit plus de <span class="text-critical">106 %</span> du chiffre d'affaires trimestriel (<span class="text-neutral">782,6 M$</span>). Cela équivaut à un délai de recouvrement de près de 95 jours. L'entreprise "bourre" les canaux de PepsiCo sans encaisser le cash.</p>
+        <p><strong>Postes "Ajustés" :</strong> Les <span class="text-critical">24,55 M$</span> de frais juridiques réintégrés à l'EBITDA Ajusté sont de vraies sorties de cash liées à de mauvaises pratiques commerciales. Les SBC (<span class="text-neutral">7,62 M$</span>) sont exclus des charges par le management.</p>
+
+        <h2>Analyse de la concurrence (Relative Moat)</h2>
+        <p><strong>Comparaison de Marge :</strong> Monster Beverage affiche une marge brute de <span class="text-positive">55,3 %</span> face aux <span class="text-critical">48,3 %</span> de Celsius. Monster subit la même hausse de l'aluminium mais préserve ses marges grâce à un vrai Pricing Power.</p>
+        <p><strong>Croissance Relative :</strong> Celsius capte <span class="text-neutral">33 %</span> de la croissance du marché US, mais Monster déploie une croissance internationale de <span class="text-positive">+45 %</span> (<span class="text-neutral">1,06 milliard USD</span>). Le Moat international de Celsius (<span class="text-neutral">4,5 %</span> du CA) est inexistant face à Monster.</p>
+
+        <h2>Test de résilience (Stress test)</h2>
+        <p><strong>Couverture des Intérêts :</strong> Bonne solvabilité à court terme.</p>
+        <p><strong>Profil d'échéance :</strong> Prêt à terme de <span class="text-neutral">696,5 M$</span> à échéance 2032. Pas de mur de dette immédiat.</p>
+        <p><strong>Pricing Power :</strong> Inexistant. L'entreprise procède à des optimisations de packaging car elle ne peut plus monter ses prix sans détruire les volumes.</p>
+
+        <h2>Conclusion "Inside the box"</h2>
+        <div class="scores-grid">
+            <div class="score-card score-bad">
+                <div class="score-circle">
+                    <span class="score-val text-critical">1</span>
+                    <span class="score-lbl-inner">SCORE</span>
+                </div>
+                <div class="score-title">Qualité Bénéfices</div>
+            </div>
+            <div class="score-card score-bad">
+                <div class="score-circle">
+                    <span class="score-val text-critical">2</span>
+                    <span class="score-lbl-inner">SCORE</span>
+                </div>
+                <div class="score-title">Allocation Capital</div>
+            </div>
+        </div>
+        
+        <div class="insight-box insight-critical">
+            <p><strong>Verdict binaire :</strong> Façade fragile.</p>
+        </div>
+
+        <h2>Le dernier filtre du cynique (L'autopsie finale)</h2>
+        <div class="card">
+            <ul class="custom-bullets">
+                <li><strong>Vampirisme des SBC :</strong> Modéré, mais indécent vu la baisse des marges.</li>
+                <li><strong>Audit du Goodwill :</strong> Goodwill (<span class="text-neutral">919,7 M$</span>) + Marques (<span class="text-neutral">1 280,2 M$</span>) = <span class="text-neutral">2,2 milliards USD</span>, soit <span class="text-critical">42,6 %</span> du total de l'actif. Le risque de dépréciation (impairment) sur la marque Rockstar (<span class="text-critical">-13 %</span> de ventes) est une bombe à retardement comptable.</li>
+                <li><strong>Cannibalisme d'Actifs :</strong> Les CapEx ne sont pas dévoilés clairement, mais l'amortissement (D&A) de <span class="text-neutral">9,1 M$</span> est très faible. L'entreprise est "asset-light" par sous-traitance, la protégeant de ce biais.</li>
+                <li><strong>L'Évitement Fiscal :</strong> Taux effectif à <span class="text-neutral">19,95 %</span>. Pas d'anomalie offshore détectée.</li>
+            </ul>
+        </div>
+
+        <div class="verdict-final">
+            <div class="verdict-final-title">VERDICT DE L'INITIÉ : FAÇADE FRAGILE</div>
+            <p>Les résultats publiés relèvent de la cosmétique financière : la croissance impressionnante de <span class="text-neutral">138 %</span> n'est que l'addition mathématique d'acquisitions récentes, masquant l'effondrement de la croissance organique de Celsius à un anémique <span class="text-critical">6 %</span>. Le bilan est toxique, avec des créances clients qui dépassent le chiffre d'affaires trimestriel (témoignant d'un "channel stuffing" avec PepsiCo), tandis que les marges brutes sont sacrifiées sur l'autel du volume.</p>
+        </div>
+
+        <h2>Checklist de surveillance — Prochain rapport</h2>
+
+        <div class="checklist-grid">
+            <div class="checklist-card">
+                <h3>1. Incohérences Discours <span class="grav-badge bg-critical">Majeure</span></h3>
+                <p>La direction blâme "le froid hivernal" pour la baisse des marges alors que Monster maintient <span class="text-neutral">55 %</span>.</p>
+                <div class="kpi-focus-box">
+                    Indicateur clé attendu : Marge Brute T2 (doit stopper l'hémorragie).
+                </div>
+            </div>
+
+            <div class="checklist-card">
+                <h3>Croissance organique <span class="grav-badge bg-critical">Majeure</span></h3>
+                <p>Croissance revendiquée "record" vs CELSIUS brand à <span class="text-neutral">+6 %</span>.</p>
+                <div class="kpi-focus-box">
+                    Indicateur clé attendu : Croissance organique spécifique de la marque CELSIUS au T2.
+                </div>
+            </div>
+            
+            <div class="checklist-card">
+                <h3>Ajustements douteux <span class="grav-badge bg-critical">Majeure</span></h3>
+                <p>Frais juridiques traités comme "exceptionnels" depuis plusieurs trimestres.</p>
+                <div class="kpi-focus-box">
+                    Indicateur clé attendu : Ligne "Accrued Expenses" au bilan.
+                </div>
+            </div>
+
+            <div class="checklist-card">
+                <h3>2. Faiblesses Opé. <span class="grav-badge bg-warning">Vigilance</span></h3>
+                <p>Marges diluées à <span class="text-neutral">48,3 %</span>. Point de réassurance : L'intégration d'une 2ème ligne réduira les frais.</p>
+                <div class="kpi-focus-box">
+                    KPI attendu : Gross Margin > 49%
+                </div>
+                <div class="checklist-deadline">Échéance : H2 2026</div>
+            </div>
+            
+            <div class="checklist-card">
+                <h3>BFR et Créances <span class="grav-badge bg-warning">Vigilance</span></h3>
+                <p>Créances clients hors norme. Point de réassurance : Trésorerie de <span class="text-neutral">549 M$</span> permettant d'absorber le BFR.</p>
+                <div class="kpi-focus-box">
+                    KPI attendu : Accounts Receivable < 832 M$
+                </div>
+                <div class="checklist-deadline">Échéance : T2 2026</div>
+            </div>
+            
+            <div class="checklist-card">
+                <h3>3. Matrice des Risques <span class="grav-badge bg-critical">Majeure</span></h3>
+                <p><strong>Risque Majeur :</strong> Concentration client (PepsiCo <span class="text-neutral">59 %</span>). Les chiffres montrent une soumission plus qu'un partenariat.</p>
+                <div class="kpi-focus-box">
+                    Attendu prochain rapport : Baisse du poste "Accounts Receivable" pour valider que Pepsi paie.
+                </div>
+            </div>
+        </div>
+
+        <h2>Questions critiques pour la prochaine Earnings Call</h2>
+        <div class="card">
+            <ul class="custom-bullets">
+                <li>« Pouvez-vous expliquer pourquoi les créances clients (<span class="text-critical">832 M$</span>) dépassent le chiffre d'affaires total du trimestre ? S'agit-il d'un bourrage de canaux (channel stuffing) avec PepsiCo ? »</li>
+                <li>« Quel est le plan chiffré pour corriger la marge brute et compenser la dilution causée par Rockstar et Alani Nu avant le T3 2026 ? »</li>
+                <li>« À quel horizon la croissance organique de la marque historique CELSIUS reviendra-t-elle à deux chiffres, après être tombée à <span class="text-neutral">6 %</span> ce trimestre ? »</li>
+                <li>« Pouvez-vous justifier le maintien des frais de litiges dans les ajustements EBITDA alors qu'ils semblent devenus une charge structurelle récurrente de l'entreprise ? »</li>
+                <li>« Au vu des <span class="text-critical">13 %</span> de baisse des ventes de Rockstar, à quel moment envisagez-vous de passer une charge de dépréciation (impairment) sur le Goodwill ? »</li>
+            </ul>
+        </div>
+
+        <h2>Seuils qualitatifs & déclencheurs d'alerte</h2>
+        <div class="checklist-grid">
+            <div class="checklist-card">
+                <h3>Seuil 1 — Alerte "Moat" <span class="grav-badge bg-critical">Critique</span></h3>
+                <p>Si la croissance organique de la marque CELSIUS passe sous les <span class="text-critical">5 %</span>, la thèse de qualité est compromise (fin du pricing power).</p>
+            </div>
+            <div class="checklist-card">
+                <h3>Seuil 2 — Alerte "Bruit" <span class="grav-badge bg-warning">Attention</span></h3>
+                <p>Si la marge brute reste sous les <span class="text-neutral">49 %</span> sur 2 trimestres supplémentaires, la détérioration devient structurelle.</p>
+            </div>
+            <div class="checklist-card">
+                <h3>Seuil 3 — Alerte Transparence <span class="grav-badge bg-critical">Gouvernance</span></h3>
+                <p>Si le ratio (Créances Clients / CA trimestriel) reste supérieur à <span class="text-critical">100 %</span>, signal de dégradation comptable extrême (reconnaissance agressive des revenus).</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
