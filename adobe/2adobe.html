@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic de Viabilité Structurelle - Adobe Inc. (ADBE)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        *, *::before, *::after { box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #cbd5e1; 
+            color: #0f172a; 
+            line-height: 1.75; 
+            margin: 0; 
+            padding: 0 0 40px 0; 
+            font-size: 10pt; 
+        }
+
+        .dashboard-wrapper { max-width: 950px; margin: 0 auto; padding: 0 20px; position: relative; }
+
+        p { text-align: justify; font-size: 10pt; color: #334155; margin-bottom: 20px; margin-top: 0; }
+
+        .text-neutral { color: #0f172a; font-weight: 700; }
+        .text-positive { color: #16a34a; font-weight: 700; }
+        .text-critical { color: #dc2626; font-weight: 700; }
+        .text-warning { color: #ea580c; font-weight: 700; }
+
+        .card { background: #ffffff; border-radius: 6px; padding: 35px; margin: 30px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.02); border: 1px solid #cbd5e1; overflow: hidden; }
+        .card-bordered-top { border-top: 6px solid #0f172a; }
+
+        .card h2 { 
+            background-color: #f1f5f9; 
+            color: #1e293b; 
+            margin: -35px -35px 25px -35px; 
+            padding: 15px 35px;
+            border-bottom: 1px solid #cbd5e1;
+            border-radius: 6px 6px 0 0;
+            font-size: 12pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 800;
+        }
+
+        h3 { 
+            background-color: #f8fafc;
+            padding: 10px 15px;
+            border-left: 5px solid #2563eb;
+            color: #0f172a;
+            font-size: 10.5pt;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        header { 
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); 
+            color: #ffffff; 
+            padding: 50px 40px 90px 40px; 
+            text-align: center;
+            border-top: 5px solid #2563eb;
+        }
+
+        .flash-scores-container { max-width: 950px; margin: -50px auto 40px auto; padding: 0 24px; position: relative; z-index: 10; }
+        .grid-3col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .score-item { 
+            background: #ffffff; 
+            border-radius: 6px; 
+            padding: 20px; 
+            text-align: center; 
+            border: 1px solid #e2e8f0; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); 
+            border-top: 4px solid #10b981;
+        }
+        .score-lab { font-size: 7.5pt; text-transform: uppercase; color: #475569; font-weight: 700; display: block; margin-bottom: 5px; }
+        .score-val { font-size: 14pt; font-weight: 800; display: block; margin-top: 5px; }
+
+        .table-responsive { overflow-x: auto; margin: 20px 0; border: 1px solid #cbd5e1; border-radius: 6px; }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 9pt; background: #ffffff; }
+        th { background-color: #0f172a; color: #ffffff; padding: 12px 15px; font-weight: 600; text-transform: uppercase; border-bottom: 2px solid #cbd5e1; }
+        td { padding: 12px 15px; border-bottom: 1px solid #e2e8f0; color: #334155; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+
+        .badge-status { display: inline-block; padding: 4px 8px; font-size: 8pt; font-weight: 700; border-radius: 4px; text-transform: uppercase; min-width: 85px; text-align: center; }
+        .status-go { background-color: #dcfce7; color: #16a34a; border: 1px solid #bbf7d0; }
+        .status-neutral { background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; }
+
+        .jauge-container { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; max-width: 450px; text-align: center; margin: 30px auto; }
+        
+        .insight-box { padding: 20px; border-radius: 0 6px 6px 0; margin: 25px 0; font-size: 10pt; border-left: 4px solid; }
+        .insight-positive { background-color: #f0fdf4; border-left-color: #16a34a; color: #166534; }
+        .insight-warning { background-color: #fffbeb; border-left-color: #ea580c; color: #9a3412; }
+
+        .footer-insti { margin-top: 40px; padding-top: 20px; border-top: 1px dashed #cbd5e1; font-size: 8pt; color: #475569; text-align: center; font-weight: 600; text-transform: uppercase; }
+        .disclaimer-box { margin-top: 50px; padding: 20px 25px; border: 1px dashed #94a3b8; border-radius: 6px; background-color: rgba(248, 250, 252, 0.5); font-size: 7.5pt; color: #475569; text-align: justify; }
+
+        ul.custom-bullets { list-style: none; padding-left: 0; }
+        ul.custom-bullets li { position: relative; padding-left: 20px; margin-bottom: 12px; text-align: justify; }
+        ul.custom-bullets li::before { content: "■"; position: absolute; left: 0; color: #2563eb; font-size: 8pt; top: 2px; }
+
+        .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .checklist-card { background: #ffffff; border: 1px solid #cbd5e1; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div style="font-size: 8.5pt; text-transform: uppercase; letter-spacing: 2px; color: #2563eb; font-weight: 700; margin-bottom: 10px;">
+            DIAGNOSTIC DE VIABILITÉ STRUCTURELLE
+        </div>
+        <h1>ADOBE INC. (ADBE)</h1>
+        <div class="subtitle">Analyse de Survie &amp; Mur de Dette au Premier Trimestre de l'Exercice Fiscal 2026</div>
+    </header>
+
+    <div class="flash-scores-container">
+        <div class="grid-3col">
+            <div class="score-item">
+                <span class="score-lab">Altman Z-Score</span>
+                <span class="score-val text-positive">7,15</span>
+            </div>
+            <div class="score-item" style="border-top: 4px solid #0f172a;">
+                <span class="score-lab">Couverture des Intérêts</span>
+                <span class="score-val text-positive">38,38x</span>
+            </div>
+            <div class="score-item">
+                <span class="score-lab">Taux de Récurrence</span>
+                <span class="score-val text-positive">96,87 %</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-wrapper">
+
+        <div class="card card-bordered-top">
+    <h2>Résumé Exécutif &amp; Périmètre d'Utilité</h2>
+    
+    <p>
+        On va être très clair : ce rapport a un seul et unique but, celui de vérifier si Adobe a les reins assez solides pour traverser la tempête actuelle sans risquer le tapis rouge vers la faillite. Pour ça, on oublie complètement le bruit du marché et la panique boursière ambiante pour se focaliser sur la matérialité froide du bilan.
+    </p>
+
+    <ul class="custom-bullets" style="margin-bottom: 20px;">
+        <li><strong>Périmètre exclusif :</strong> L'analyse se cantonne strictement aux métriques de crédit du premier trimestre 2026 pour écarter tout risque d'asphyxie financière.</li>
+        <li><strong>Les piliers du diagnostic :</strong> Un examen rigoureux de la dette obligataire ($6,15 milliards), un suivi de la couverture des charges d'intérêts (38,38x) et la modélisation du Z-Score d'Altman (7,15).</li>
+        <li><strong>Rôle de la tech et de l'IA :</strong> Les mentions de la suite logicielle ou de l'IA Firefly ne servent pas à valider le marketing du management, mais uniquement à confirmer la récurrence contractuelle du cash et la préservation de la marge brute (89,6 %).</li>
+    </ul>
+
+    <div class="insight-box insight-positive" style="margin-top: 15px; margin-bottom: 0;">
+        <strong>CONCLUSION FACTUELLE :</strong> 
+        Adobe dispose d'une structure financière saine et de coffres assez pleins pour auto-financer sa mutation stratégique en toute indépendance, sans jamais avoir besoin de mendier le moindre centime d'urgence auprès des banques. Spoiler : le risque de faillite est nul.
+    </div>
+</div>
+
+        <div class="card">
+    <h2>1. Profil d'Échéance de la Dette &amp; Liquidité</h2>
+    
+    <p>
+        La dette d’Adobe, c’est du propre : uniquement des obligations de premier rang (Senior Notes), sans entourloupe ni garantie bizarre, émises sur le marché public avec une excellente notation de crédit (Investment Grade). Au 27 février 2026, l’encours brut s’élève à <strong>$6,15 milliards de dollars</strong> en valeur nominale (affiché à $6,23 milliards au bilan après les ajustements comptables habituels des swaps de taux).
+    </p>
+
+    <div class="table-responsive">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="padding: 12px;">Horizon Temporel (Maturité)</th>
+                    <th style="padding: 12px;">Tranche Obligataire Concernée (Taux / Échéance)</th>
+                    <th style="padding: 12px; text-align: center;">Montant Nominal</th>
+                    <th style="padding: 12px; text-align: center;">Statut de Risque</th>
+                    <th style="padding: 12px;">Commentaire de l'Inquisiteur</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="background-color: #fffbeb;">
+                    <td style="padding: 12px;"><strong>Moins de 12 mois (CT)</strong></td>
+                    <td style="padding: 12px; color: #b45309;">Senior Notes 2,15% (01/02/2027)</td>
+                    <td style="padding: 12px; text-align: center; font-weight: 800; font-size: 10.5pt; color: #b45309;">$850 M</td>
+                    <td style="padding: 12px; text-align: center;"><span class="badge-status" style="background-color: #fef3c7; color: #92400e; border: 1px solid #fde047;">SURVEILLANCE</span></td>
+                    <td style="padding: 12px; font-size: 8.5pt;">Reclassé à court terme au Q1 2026. Refinancement planifié sans aucune contrainte de marché.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px;"><strong>Entre 12 et 24 mois</strong></td>
+                    <td style="padding: 12px;">Senior Notes 4,85% (2027) &amp; 4,75% (2028)</td>
+                    <td style="padding: 12px; text-align: center; font-weight: 700; font-size: 10pt;">$1 300 M</td>
+                    <td style="padding: 12px; text-align: center;"><span class="badge-status status-neutral">GÉRABLE</span></td>
+                    <td style="padding: 12px; font-size: 8.5pt;">Maturités échelonnées. Coût de portage moyen pondéré très inférieur aux rendements monétaires actuels.</td>
+                </tr>
+                <tr style="background-color: #f0fdf4;">
+                    <td style="padding: 12px;"><strong>Entre 24 et 36 mois</strong></td>
+                    <td style="padding: 12px; color: #15803d;">Aucune échéance active sur cet horizon</td>
+                    <td style="padding: 12px; text-align: center; font-weight: 800; font-size: 10.5pt; color: #16a34a;">$0</td>
+                    <td style="padding: 12px; text-align: center;"><span class="badge-status status-go">SAIN</span></td>
+                    <td style="padding: 12px; font-size: 8.5pt;">Absence totale de pression sur la trésorerie. La prochaine tranche ($750 M à 4,80%) n'intervient qu'en avril 2029.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="background-color: #f1f5f9; border-left: 5px solid #0f172a; padding: 20px; margin-top: 20px; border-radius: 0 6px 6px 0;">
+        <div style="font-weight: 800; font-size: 8.5pt; text-transform: uppercase; color: #1e293b; margin-bottom: 8px; letter-spacing: 0.5px;">Qui détient la montre ?</div>
+        <p style="margin-bottom: 0; font-size: 9.5pt; line-height: 1.6;">
+            Le débat trouve une conclusion sans appel : <strong>c’est le management d'Adobe qui dicte le calendrier</strong>, pas ses banquiers. L'absence totale d'obligations de remboursement anticipé, combinée à une trésorerie disponible de <strong>$6,33 milliards de dollars</strong> et $558 millions de placements court terme au Q1 2026, garantit une indépendance absolue vis-à-vis des syndicats bancaires et des agences de notation.
+        </p>
+    </div>
+</div>
+
+        <div class="card">
+    <h2>2. Z-Score d'Altman : Calcul et Verdict</h2>
+    <p>
+        La modélisation de la solvabilité globale d'Adobe s'appuie sur la formule classique du Z-Score d’Altman adaptée aux entreprises de services et de technologie :
+    </p>
+    
+    <div style="text-align:center; margin:1.5em 0; font-size:1.2em; background-color: #f8fafc; padding: 18px; border-radius: 6px; border: 1px solid #cbd5e1; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);">
+        <span style="font-family: 'Times New Roman', serif; font-style: italic; font-weight: bold; color: #1e3a8a; letter-spacing: 0.5px;">
+            Z = 6,56 × T<sub>1</sub> + 3,26 × T<sub>2</sub> + 6,72 × T<sub>3</sub> + 1,05 × T<sub>4</sub>
+        </span>
+    </div>
+
+    <p style="margin-bottom: 20px;">Chacun de ces ratios est calculé à partir des données comptables arrêtées au 27 février 2026 :</p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 25px;">
+        
+        <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; border-left: 4px solid #ea580c;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 8pt; font-weight: 800; color: #475569; text-transform: uppercase;">T<sub>1</sub> • Fonds de Roulement / Total Actifs</span>
+                <span style="font-size: 11pt; font-weight: 800; color: #ea580c;">0,0338</span>
+            </div>
+            <p style="font-size: 8.5pt; line-height: 1.4; color: #475569; margin: 0;">
+                Le fonds de roulement brut est négatif de $1,004 milliard ($10,386 Md d'actifs courants contre $11,390 Md de passifs courants). 
+                <strong>L'explication :</strong> La présence de $7,275 milliards de produits constatés d'avance (*Deferred Revenue*) qui ne sont pas une sortie de cash mais des abonnements encaissés. Ajusté de cette variable, le fonds de roulement réel est un excédent somptueux de $6,271 milliards.
+            </p>
+        </div>
+
+        <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; border-left: 4px solid #2563eb;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 8pt; font-weight: 800; color: #475569; text-transform: uppercase;">T<sub>2</sub> • Bénéfices Accumulés / Total Actifs</span>
+                <span style="font-size: 11pt; font-weight: 800; color: #2563eb;">1,588</span>
+            </div>
+            <p style="font-size: 8.5pt; line-height: 1.4; color: #475569; margin: 0;">
+                Calculé sur la base de $47,170 milliards de dollars de bénéfices non distribués pour un total d'actifs de $29,704 milliards. Ce niveau exceptionnel traduit l'historique d'une machine à cash qui a accumulé des réserves colossales au fil des ans plutôt que de les dilapider.
+            </p>
+        </div>
+
+        <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; border-left: 4px solid #16a34a;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 8pt; font-weight: 800; color: #475569; text-transform: uppercase;">T<sub>3</sub> • EBIT GAAP / Total Actifs</span>
+                <span style="font-size: 11pt; font-weight: 800; color: #16a34a;">0,0814 <span style="font-size: 7.5pt; font-weight: 500; color: #64748b;">(0,326 ann.)</span></span>
+            </div>
+            <p style="font-size: 8.5pt; line-height: 1.4; color: #475569; margin: 0;">
+                Établi sur la base d'un résultat opérationnel GAAP trimestriel de $2,418 milliards de dollars. La rentabilité économique brute sur un seul trimestre est déjà supérieure à la moyenne annuelle de la plupart des industries lourdes. 
+            </p>
+        </div>
+
+        <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; border-left: 4px solid #64748b;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 8pt; font-weight: 800; color: #475569; text-transform: uppercase;">T<sub>4</sub> • Capitaux Propres / Total Passif</span>
+                <span style="font-size: 11pt; font-weight: 800; color: #0f172a;">0,626</span>
+            </div>
+            <p style="font-size: 8.5pt; line-height: 1.4; color: #475569; margin: 0;">
+                Soutenu par des capitaux propres de $11,433 milliards de dollars face à un passif total de $18,271-milliards de dollars. Le bilan d'Adobe offre un coussin de sécurité confortable qui protège les créanciers de toute secousse d'exploitation.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="jauge-container" style="max-width: 420px; margin: 20px auto; border: 1px solid #cbd5e1;">
+        <div style="font-size: 8pt; text-transform: uppercase; font-weight: 700; color: #64748b; margin-bottom: 3px;">Verdict Pondéré du Modèle</div>
+        <div style="font-size: 18pt; font-weight: 900; color: #16a34a; margin-bottom: 12px;">Z-Score d'Altman : 7,15</div>
+        <div style="position: relative; height: 10px; background: linear-gradient(to right, #ef4444 0%, #ef4444 20%, #f59e0b 20%, #f59e0b 45%, #10b981 45%, #10b981 100%); border-radius: 5px; margin: 0 15px 12px 15px;">
+            <div style="position: absolute; left: 85%; top: 50%; transform: translate(-50%, -50%); width: 16px; height: 16px; background: #0f172a; border: 2px solid #ffffff; border-radius: 50%;"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 7pt; font-weight: 700; text-transform: uppercase; color: #94a3b8; padding: 0 10px;"><span>Détresse (&lt;1.10)</span><span>Zone Grise</span><span>Sécurité Absolue (&gt;2.99)</span></div>
+    </div>
+
+    <div class="insight-box insight-positive" style="margin-top: 20px; margin-bottom: 0;">
+        <strong>VERDICT DE SOLVABILITÉ : SÉCURITÉ ABSOLUE</strong><br>
+        Le score consolidé à <strong>7,15</strong> se situe stratosphériquement au-delà de la zone de sécurité définie à 2,99. Le diagnostic est indiscutable : la probabilité de défaillance financière d'Adobe est statistiquement nulle pour les prochaines années.
+    </div>
+</div>
+
+        <div class="card">
+    <h2>3. Stress-Test de Sensibilité aux Taux d'Intérêt</h2>
+    <p>
+        Afin d'éprouver la résilience de la structure financière d'Adobe, deux scénarios de stress monétaire extrême ont été modélisés à partir des flux financiers observés sur les douze derniers mois glissants :
+    </p>
+
+    <div class="table-responsive">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="padding: 12px;">Scénario de Stress</th>
+                    <th style="padding: 12px;">Hypothèse de Calcul Appliquée</th>
+                    <th style="padding: 12px; text-align: center;">Impact Annuel Brut</th>
+                    <th style="padding: 12px; text-align: center;">Impact sur le FCF LTM</th>
+                    <th style="padding: 12px; text-align: center;">Verdict de la Cellule</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 12px;"><strong>Hausse de 100 bps</strong></td>
+                    <td style="padding: 12px; font-size: 8.5pt; color: #475569;">Augmentation uniforme de 100 points de base du taux de refinancement sur l'intégralité de la dette obligataire brute ($6,15 milliards).</td>
+                    <td style="padding: 12px; text-align: center; font-weight: 800; font-size: 10.5pt; color: #ea580c;">$61,5 M</td>
+                    <td style="padding: 12px; text-align: center; font-weight: 800; font-size: 10.5pt; color: #ea580c;">-0,61 %</td>
+                    <td style="padding: 12px; text-align: center; font-size: 8.5pt;">
+                        <span class="badge-status status-go" style="margin-bottom: 4px;">INSIGNIFIANT</span><br>
+                        <span style="color: #64748b;">Capacité opérationnelle intacte.</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px;"><strong>Hausse de 300 bps</strong></td>
+                    <td style="padding: 12px; font-size: 8.5pt; color: #475569;">Augmentation de 300 points de base appliquée au refinancement de l'intégralité de la dette de moyen terme.</td>
+                    <td style="padding: 12px; text-align: center; font-weight: 800; font-size: 10.5pt; color: #dc2626;">$184,5 M</td>
+                    <td style="padding: 12px; text-align: center; font-weight: 800; font-size: 10.5pt; color: #dc2626;">-1,85 %</td>
+                    <td style="padding: 12px; text-align: center; font-size: 8.5pt;">
+                        <span class="badge-status status-go" style="margin-bottom: 4px;">RÉSILIENCE TOTALE</span><br>
+                        <span style="color: #64748b;">FCF résiduel &gt; $9,81 Md. Buybacks sécurisés.</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p style="margin-top: 20px; margin-bottom: 0;">
+        La nature fixe des obligations contractuelles actuelles et l'absence d'exposition significative à des taux variables protègent intégralement le compte de résultat d'Adobe d'un resserrement prolongé du crédit.
+    </p>
+</div>
+
+        <div class="card">
+    <h2>4. Couverture des Intérêts &amp; Matelas de Liquidité</h2>
+    <p>
+        Le ratio de couverture des charges d'intérêts (Interest Coverage Ratio) mesure la capacité d'Adobe à honorer le service de sa dette obligataire à partir de sa profitabilité d'exploitation brute :
+    </p>
+    
+    <div style="display: flex; align-items: center; justify-content: center; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 15px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 10.5pt;">
+        <div style="text-align: right; font-weight: 700; color: #475569;">EBIT GAAP Q1 2026 ($2 418 M)<br style="margin-bottom: 4px;"><span style="border-top: 1px solid #cbd5e1; display: inline-block; padding-top: 4px;">Charges d'Intérêts Q1 2026 ($63 M)</span></div>
+        <div style="font-size: 16pt; font-weight: 900; color: #16a34a; margin-left: 20px;">= 38,38x</div>
+    </div>
+
+    <p>
+        Sur une base annuelle glissante (LTM - Last Twelve Months), le ratio s’établit à 33,1x. Ce niveau de protection exceptionnel se situe stratosphériquement au-dessus du seuil critique d'alerte rouge fixé à 3x. L'entreprise dispose d'une marge de manœuvre gigantesque face à ses créanciers obligataires.
+    </p>
+
+    <h3>Marge de Manœuvre Financière &amp; Liquidité de Secours</h3>
+    <p style="margin-bottom: 20px;">
+        L’analyse de la liquidité globale d'Adobe met en scène un déséquilibre massif — et rassurant — entre le trésor immédiatement mobilisable et les échéances à moins d'un an :
+    </p>
+
+    <div class="grid-2col" style="margin: 25px 0; gap: 20px;">
+        
+        <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 20px;">
+            <div style="font-size: 7.5pt; font-weight: 800; color: #16a34a; text-transform: uppercase; margin-bottom: 15px; border-bottom: 1px solid #dcfce7; padding-bottom: 5px; display: flex; justify-content: space-between;">
+                <span>Liquidités de Secours Disponibles</span>
+                <span>TOTAL : $8 390 M</span>
+            </div>
+            <div style="margin-bottom: 12px; display: flex; justify-content: space-between; font-size: 9pt;">
+                <span style="color: #14532d;">Trésorerie immédiate &amp; équivalents :</span>
+                <strong style="color: #15803d;">$6 332 M</strong>
+            </div>
+            <div style="margin-bottom: 12px; display: flex; justify-content: space-between; font-size: 9pt;">
+                <span style="color: #14532d;">Placements à court terme :</span>
+                <strong style="color: #15803d;">$558 M</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 9pt;">
+                <span style="color: #14532d;">Ligne RCF réutilisable (non tirée) :</span>
+                <strong style="color: #15803d;">$1 500 M</strong>
+            </div>
+        </div>
+
+        <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <div style="font-size: 7.5pt; font-weight: 800; color: #475569; text-transform: uppercase; margin-bottom: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">
+                    Besoins Obligataires à Court Terme (&lt; 12 mois)
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 9pt; margin-bottom: 15px;">
+                    <span>Senior Notes à rembourser (Février 2027) :</span>
+                    <strong style="color: #0f172a;">$849 M</strong>
+                </div>
+            </div>
+            
+            <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px; text-align: center; border-left: 4px solid #2563eb;">
+                <span style="font-size: 7pt; font-weight: 800; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 2px;">Ratio de Couverture Interne</span>
+                <span style="font-size: 14pt; font-weight: 900; color: #2563eb;">9,8x</span>
+                <span style="font-size: 7.5pt; color: #64748b; display: block;">des besoins immédiats couverts par le cash</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="insight-box insight-positive" style="margin-top: 20px; margin-bottom: 0;">
+        <strong>DIAGNOSTIC DE COUVERTURE : LA FORTERESSE FINANCIÈRE</strong><br>
+        Avec une couverture interne de <strong>9,8x</strong>, le groupe n'a absolument pas besoin de faire appel aux marchés de capitaux dans l'urgence pour assurer sa pérennité. Adobe s'appuie sur un syndicat de grandes banques mondiales réglementées et reste totalement absente des circuits complexes du *Shadow Banking* (finance de l'ombre) ou du crédit privé non régulé. Enfin, l'absence totale de *covenants* (clauses restrictives) financiers sur ses Senior Notes écarte définitivement le risque d'un défaut technique provoqué par une rupture accidentelle de clause bancaire.
+    </div>
+</div>
+
+        <div class="card">
+            <h2>5. Le Réquisitoire du Short-Seller face à la Réalité Comptable</h2>
+            <p>
+                Malgré l'excellence apparente des agrégats comptables d'Adobe, il convient de confronter les états financiers de l'entreprise à un audit d'intégrité sévère afin de déceler des poches d'inefficacité ou des zones d'ombre comptables susceptibles de dissimuler des passifs latents.
+            </p>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Domaine d'Audit Approfondi</th>
+                            <th>Argument Clé du Short-Seller</th>
+                            <th>Réalité Comptable Constatée au Q1 2026</th>
+                            <th>Impact Réel et Verdict de l'Audit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Passifs Hors-Bilan</strong></td>
+                            <td>Dette cachée sous forme d'engagements d'achats à long terme (Cloud) et contrats de location non capitalisés.</td>
+                            <td>Obligations de location opérationnelle capitalisées à hauteur de $428 M ($84 M à CT, $344 M à LT). Engagements de rémunération différée de $509 M.</td>
+                            <td><span class="badge-status status-go">CONTRÔLÉ</span> : Les baux sont inscrits à l'actif sous forme de droits d'utilisation pour $305 M. Les engagements multi-cloud (AWS, Azure, GCP) sont lissés en charges d'exploitation.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Le Syndrome Zombie</strong></td>
+                            <td>Insuffisance d'investissement corporel (CAPEX) traduisant une usure silencieuse de l'outil de production.</td>
+                            <td>Denses dépenses de CapEx de $37,0 M au Q1 2026 face à des dotations aux amortissements de $35,0 M.</td>
+                            <td><span class="badge-status status-go">INVALIDÉ</span> : CapEx supérieurs aux amortissements. En modèle SaaS, la R&amp;D n'est pas capitalisée mais entièrement passée en OpEx (charges opérationnelles) pour $1,11 Md$.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Survie face aux Subventions</strong></td>
+                            <td>Dépendance de la rentabilité opérationnelle vis-à-vis des aides publiques et crédits d'impôts d'État.</td>
+                            <td>Chiffre d'affaires de $6,40 milliards de dollars généré intégralement par la vente de licences et d'abonnements au secteur privé commercial.</td>
+                            <td><span class="badge-status status-go">INVALIDÉ</span> : Exposition nulle aux aides étatiques. Adobe fonctionne sur un modèle commercial autonome hautement compétitif.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Burn Rate &amp; Dilution</strong></td>
+                            <td>Consommation accélérée de la trésorerie menant à une augmentation de capital dilutive inévitable.</td>
+                            <td>Flux de trésorerie d'exploitation (Operating Cash Flow) positif de $2,96 milliards de dollars au cours du seul premier trimestre 2026.</td>
+                            <td><span class="badge-status status-go">INVALIDÉ</span> : Absence totale de burn rate. Adobe auto-finance ses rachats d'actions ($2,5 milliards au Q1 2026) et ses acquisitions.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+    <h2>6. Expertise d'Investigation Approfondie des Postes de Risque</h2>
+    
+    <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 25px; margin-bottom: 25px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 15px;">
+            <h3 style="margin: 0; padding: 0; background: transparent; border-left: none; font-size: 11pt; text-transform: uppercase; color: #0f172a;">
+                 Diagnostic I • Engagements Hors-Bilan & Multi-Cloud
+            </h3>
+            <span class="badge-status status-go">SOUS CONTRÔLE</span>
+        </div>
+        <p style="font-size: 9.5pt; line-height: 1.6;">
+            L'examen minutieux des engagements révèle qu'Adobe est exposée à des obligations de dépenses d'infrastructure importantes, mais parfaitement proportionnées à ses opérations. Pour faire tourner son IA (Intelligence Artificielle) générative <strong>Firefly</strong>, le groupe s'appuie sur un modèle multi-cloud tiers (AWS, Azure, GCP).
+        </p>
+        <div style="display: flex; gap: 20px; margin: 15px 0;">
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; flex: 1; text-align: center;">
+                <span style="font-size: 7.5pt; font-weight: 700; color: #64748b; text-transform: uppercase;">Coût direct des abonnements (Q1 2026)</span>
+                <span style="display: block; font-size: 14pt; font-weight: 800; color: #0f172a; margin-top: 4px;">$664 M</span>
+            </div>
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; flex: 1; text-align: center;">
+                <span style="font-size: 7.5pt; font-weight: 700; color: #64748b; text-transform: uppercase;">Marge Brute Préservée</span>
+                <span style="display: block; font-size: 14pt; font-weight: 800; color: #16a34a; margin-top: 4px;">89,6 %</span>
+            </div>
+        </div>
+        <p style="font-size: 9pt; color: #475569; margin-bottom: 0; font-style: italic;">
+            Le Scan : Ces contrats de consommation de serveurs, bien que contraignants à long terme, s'intègrent de manière flexible dans les charges d'exploitation courantes. Il n'existe aucun passif de retraite non financé d'envergure ni de contentieux hors-bilan non provisionné.
+        </p>
+    </div>
+
+    <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 25px; margin-bottom: 25px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 15px;">
+            <h3 style="margin: 0; padding: 0; background: transparent; border-left: none; font-size: 11pt; text-transform: uppercase; color: #0f172a;">
+                 Diagnostic II • Thèse du "Zombie" &amp; Qualité Comptable
+            </h3>
+            <span class="badge-status status-go">THÈSE INVALIDÉE</span>
+        </div>
+        <p style="font-size: 9.5pt; line-height: 1.6;">
+            L'analyse de la capitalisation technologique permet de rejeter catégoriquement l'idée d'une entreprise "zombie" qui liquiderait ses actifs corporels pour embellir son FCF (Free Cash Flow - flux de trésorerie disponible). Dans le logiciel, la vraie valeur réside dans la R&amp;D (Recherche et Développement).
+        </p>
+        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 6px; padding: 15px; margin: 15px 0; border-left: 4px solid #16a34a;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <span style="font-weight: 700; font-size: 9pt; color: #1e293b;">Discipline Comptable Radicale (Zéro R&amp;D à l'actif) :</span>
+                <span style="font-weight: 800; color: #16a34a; font-size: 11pt;">$1,110 Mlrd (17,3% du CA)</span>
+            </div>
+            <span style="font-size: 8.5pt; color: #475569; display: block; text-align: justify;">
+                Contrairement à certains concurrents qui capitalisent agressivement leurs coûts internes pour doper artificiellement le résultat d'exploitation, Adobe passe l'intégralité de sa R&amp;D immédiatement en **OpEx** (charges opérationnelles). Intégrité absolue des bénéfices confirmée par un <strong>Beneish M-Score très sain de -2,9</strong> (seuil de manipulation à -1,78).
+            </span>
+        </div>
+    </div>
+
+    <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 25px; margin-bottom: 25px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 15px;">
+            <h3 style="margin: 0; padding: 0; background: transparent; border-left: none; font-size: 11pt; text-transform: uppercase; color: #0f172a;">
+                 Diagnostic III • Subventions &amp; Autonomie Opérationnelle
+            </h3>
+            <span class="badge-status status-go">100% SOUVERAIN</span>
+        </div>
+        <p style="font-size: 9.5pt; line-height: 1.6; margin-bottom: 0;">
+            La profitabilité d'Adobe ne repose sur aucune béquille étatique, aide publique à l'innovation ou niche fiscale artificielle. Le modèle SaaS (Software as a Service) dépend exclusivement du pouvoir d'achat et de l'adoption de sa base de clients privés et corporatifs. La rentabilité opérationnelle de <strong>37,8 %</strong> enregistrée au premier trimestre 2026 est le produit pur de la scalabilité de son code, et non d'un soutien public indirect.
+        </p>
+    </div>
+
+    <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 25px; margin-bottom: 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 15px;">
+            <h3 style="margin: 0; padding: 0; background: transparent; border-left: none; font-size: 11pt; text-transform: uppercase; color: #0f172a;">
+                 Diagnostic IV • Dilution, Burn Rate &amp; Allocation du Cash
+            </h3>
+            <span class="badge-status status-go">ÉMISSION SÉCURISÉE</span>
+        </div>
+        <p style="font-size: 9.5pt; line-height: 1.6;">
+            Pour une méga-capitalisation comme Adobe, le "Burn Rate" ne menace pas la survie mais dicte la cadence des rachats d'actions. Avec un flux de trésorerie opérationnel record de <strong>$2,96 milliards de dollars</strong> généré au seul Q1 2026, le risque de dilution forcée est inexistant.
+        </p>
+        <ul class="custom-bullets" style="margin: 15px 0; font-size: 9pt;">
+            <li><strong>Rachats d'actions massifs :</strong> Destruction de 8,1 millions de titres pour $2,5 milliards de dollars au cours du trimestre, dopant artificiellement le BPA (Bénéfice par Action).</li>
+            <li><strong>M&amp;A auto-financé :</strong> Le rachat de Semrush Holdings pour <strong>$2 milliards de dollars</strong> (bouclé le 28 avril 2026) a été réglé en sortant directement les billets du trésor de guerre. Pas de dilution pour les actionnaires, pas de prêt bancaire négocié à la hâte. Du cash tiré du bilan, point.</li>
+        </ul>
+    </div>
+
+</div>
+
+       <div class="card">
+    <h2>7. La Défense du Moat Invisible face à la Panique IA</h2>
+    
+    <p>
+        Le récent dé-rating boursier subi par Adobe reflète l’anxiété court-termiste des marchés face à l'émergence des outils d'IA générative en libre accès. Pourtant, l'analyse fondamentale de l'infrastructure d'exploitation montre que les barrières à l'entrée intangibles de l'entreprise restent intactes.
+    </p>
+
+    <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 22px; margin: 20px 0;">
+        <h3 style="margin: 0 0 15px 0; padding: 0; background: transparent; border-left: none; font-size: 11pt; text-transform: uppercase; color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">
+             L'Actif Fantôme et la Dominance des Formats
+        </h3>
+        
+        <p style="font-size: 9.5pt; line-height: 1.6;">
+            Les capitaux propres tangibles déclarés au bilan ($11,433 milliards au Q1 2026) sous-estiment drastiquement la valeur intrinsèque du groupe. Le bilan consolidé intègre un compte d'actions autodétenues (Treasury Stock) enregistré au coût historique pour un montant astronomique de <strong>$51,312 milliards de dollars</strong>. Si l'on neutralise cette écriture comptable de réduction de capital, les capitaux propres réels s'élèvent à plus de 62,7 milliards de dollars.
+        </p>
+        
+        <p style="font-size: 9.5pt; line-height: 1.6; margin-bottom: 0;">
+            De plus, l'actif le plus précieux d'Adobe n'est pas capitalisé : sa base installée de 37 millions d'utilisateurs actifs et la standardisation mondiale de ses formats propriétaires (<strong>PSD, AI, PDF</strong>). Remplacer Adobe au sein d’une agence ou d’un studio ne dépend pas du coût d’un outil alternatif gratuit ; cela implique la réorganisation complète des flux de production mondiaux. Les barrières à la sortie sont quasi infranchissables.
+        </p>
+    </div>
+
+    <div style="margin: 25px 0;">
+        <h3 style="margin-top: 0;">Antifragilité Opérationnelle et Performance IA</h3>
+        <p>
+            L’intelligence artificielle générative n’est pas un facteur d’affaiblissement pour Adobe, mais un catalyseur d'activité. Le modèle propriétaire commercialement sécurisé <strong>Firefly</strong> est intégré directement au cœur des applications phares, évitant aux professionnels d'exporter leurs projets vers des plateformes tierces. 
+        </p>
+
+        <div class="table-responsive">
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th style="padding: 12px;">Indicateur de Performance IA</th>
+                        <th style="padding: 12px; text-align: center;">Statut Observé au Q1 2026</th>
+                        <th style="padding: 12px;">Signification Stratégique</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 12px;"><strong>ARR "AI-first"</strong></td>
+                        <td style="padding: 12px; text-align: center; font-weight: 800; color: #16a34a; font-size: 10.5pt;">&gt; Multiplié par 3</td>
+                        <td style="padding: 12px; font-size: 9pt;">Preuve d'une monétisation immédiate des fonctionnalités génératives en ARR (Annual Recurring Revenue - Chiffre d'affaires annuel récurrent).</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px;"><strong>Volume de Générations Firefly</strong></td>
+                        <td style="padding: 12px; text-align: center; font-weight: 800; color: #2563eb; font-size: 10.5pt;">+24 Milliards</td>
+                        <td style="padding: 12px; font-size: 9pt;">Adoption massive d'images et d'actifs créatifs par les créateurs de contenu, verrouillant la dépendance au service.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px;"><strong>Partenariats Écosystémiques</strong></td>
+                        <td style="padding: 12px; text-align: center; font-weight: 700; color: #0f172a; font-size: 9pt;">AWS, Gemini, Azure, NVIDIA, OpenAI</td>
+                        <td style="padding: 12px; font-size: 9pt;">Validation d'Adobe comme le hub applicatif central incontournable, capable d'intégrer les meilleurs modèles du marché.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 22px; margin-top: 20px;">
+        <h3 style="margin: 0 0 15px 0; padding: 0; background: transparent; border-left: none; font-size: 11pt; text-transform: uppercase; color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">
+             Levier Opérationnel et Point Mort Comparatif
+        </h3>
+        
+        <p style="font-size: 9.5pt; line-height: 1.6;">
+            La marge brute d'exploitation s'établit à un niveau quasi-monopolistique de <strong>89,6 %</strong> au Q1 2026. En cas de dégradation conjoncturelle, le management dispose de leviers d'ajustement massifs dans ses charges fixes, notamment sur les budgets promotionnels non productifs (S&amp;M à $1,708 milliard par trimestre et G&amp;A à $463 millions) sans toucher au cœur du code distribué en mode SaaS (Software as a Service).
+        </p>
+
+        <div style="display: flex; gap: 16px; margin: 15px 0;">
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; flex: 1; text-align: center; border-bottom: 3px solid #2563eb;">
+                <span style="font-size: 7.5pt; font-weight: 700; color: #64748b; text-transform: uppercase;">Taux de Récurrence du CA</span>
+                <span style="display: block; font-size: 14pt; font-weight: 900; color: #2563eb; margin-top: 4px;">96,87 %</span>
+            </div>
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; flex: 1; text-align: center; border-bottom: 3px solid #0f172a;">
+                <span style="font-size: 7.5pt; font-weight: 700; color: #64748b; text-transform: uppercase;">Carnet de Commandes (RPO)</span>
+                <span style="display: block; font-size: 14pt; font-weight: 900; color: #0f172a; margin-top: 4px;">$22,22 Md</span>
+            </div>
+        </div>
+
+        <p style="font-size: 9.5pt; line-height: 1.6; margin-bottom: 15px;">
+            Dans l'industrie de l'IA, le point mort économique d'Adobe écrase la concurrence. Alors que les startups brûlent leurs ressources dans des infrastructures cloud tierces pour louer de la puissance GPU sans base d'abonnés stables, Adobe amortit ses coûts d'infrastructure sur ses <strong>$23,77 milliards de dollars</strong> de rente récurrente. Adobe peut saturer le marché avec des tarifs marginaux agressifs tout en préservant sa rentabilité opérationnelle globale de 37,8 %.
+        </p>
+
+        <p style="font-size: 9pt; color: #475569; margin-bottom: 0; font-style: italic; border-top: 1px dashed #cbd5e1; padding-top: 10px;">
+            <strong>Le Crible :</strong> Le marché confond la volatilité du multiple d'évaluation et la fragilité du modèle économique. Les jeunes pousses de l'IA font face à un mur de coûts serveurs destructeur de valeur ; Adobe possède la base installée, les formats standards mondiaux et la rentabilité récurrente nécessaires pour digérer cette révolution technologique sans sourciller.
+        </p>
+    </div>
+</div>
+<div class="card">
+    <h2>8. Environnement Macroéconomique &amp; Risques Réglementaires</h2>
+    
+    <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 22px; margin-bottom: 25px; border-left: 4px solid #16a34a;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px;">
+            <span style="font-size: 8pt; font-weight: 800; color: #16a34a; text-transform: uppercase; letter-spacing: 0.5px;">⚖ Élasticité &amp; Résilience Macroéconomique</span>
+            <span class="badge-status status-go" style="background-color: #dcfce7; color: #16a34a;">PRICING POWER</span>
+        </div>
+        <p style="font-size: 9.5pt; line-height: 1.6; margin-bottom: 0;">
+            Pour un designer indépendant ou une agence de comm internationale, l'abonnement à la suite Creative Cloud n'est pas une option, c'est l'outil de travail obligatoire pour livrer les projets. Cette faible élasticité-prix (sensibilité du client aux variations de tarifs) permet à Adobe de réajuster ses grilles tarifaires mondiales face à l’inflation sans craindre une fuite de sa base d'abonnés payants.
+        </p>
+    </div>
+
+    <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 22px; margin-bottom: 25px; border-left: 4px solid #dc2626;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 15px;">
+            <h3 style="margin: 0; padding: 0; background: transparent; border-left: none; font-size: 10.5pt; text-transform: uppercase; color: #0f172a;">
+                 Le "Décret de Minuit" : Analyse Antitrust
+            </h3>
+            <span class="badge-status" style="background-color: #fee2e2; color: #dc2626; border: 1px solid #fca5a5;">M&amp;A BLOQUÉ</span>
+        </div>
+        <p style="font-size: 9.5pt; line-height: 1.6;">
+            L’environnement antitrust mondial est devenu un carcan restrictif pour Adobe. L'abandon forcé de la fusion avec Figma pour $20 milliards de dollars en décembre 2023 sous la pression de la FTC (Federal Trade Commission) et de l'Europe en est la preuve (coûtant au passage $1,00 milliard d'indemnité de rupture payée en FY2024). Bloqué sur les méga-deals, le groupe déploie désormais une stratégie de contournement agile :
+        </p>
+        
+        <ul class="custom-bullets" style="margin: 15px 0; font-size: 9pt;">
+            <li><strong>Acquisitions tactiques de taille moyenne :</strong> Le rachat récent de Semrush Holdings pour <strong>$2,00 milliards de dollars</strong> cash (bouclé le 28 avril 2026) prouve qu'Adobe conserve la latitude nécessaire pour intégrer des briques clés (SEO, marketing de recherche) sans déclencher les foudres des régulateurs.</li>
+            <li><strong>Innovation organique rehaussée :</strong> Privé de grands relais de croissance externe, Adobe réalloue son FCF (Free Cash Flow) massif vers ses buybacks ($2,5 milliards déployés au Q1 2026) et le développement interne de l'IA Firefly.</li>
+        </ul>
+    </div>
+
+    <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 22px; margin-bottom: 0; border-left: 4px solid #64748b;">
+        <div style="font-size: 8pt; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px;">
+             Juridiction, Conformité des Données &amp; Risques Juridiques
+        </div>
+        <p style="font-size: 9.5pt; line-height: 1.6;">
+            Face aux contraintes croissantes du RGPD (Règlement Général sur la Protection des Données) en Europe et du Cloud Act américain, Adobe atténue le risque de souveraineté en hébergeant localement les fichiers et données créatives au sein de serveurs géographiquement conformes.
+        </p>
+        <p style="font-size: 9.5pt; line-height: 1.6; margin-bottom: 15px;">
+            Quant à l'amende à l'amiable de $150 millions de dollars signée avec les autorités américaines pour des clauses de résiliation d'abonnements jugées abusives, l'impact est dérisoire. Ce montant, bien que symbolique de la surveillance accrue des régulateurs de la consommation, est une goutte d'eau : il est intégralement absorbé par le flux de trésorerie opérationnel généré en à peine une semaine d'activité.
+        </p>
+        
+        <p style="font-size: 9pt; color: #475569; margin-bottom: 0; font-style: italic; border-top: 1px dashed #cbd5e1; padding-top: 10px; margin-top: 15px;">
+            <strong>Le Crible :</strong> L'incapacité d'Adobe à racheter ses gros concurrents à cause de l'antitrust agace les marchés, mais elle protège en réalité le cash des actionnaires. Au lieu de surpayer Figma à des multiples aberrants, l'entreprise est forcée d'investir ses milliards dans ses propres logiciels et dans des rachats d'actions massifs au plus bas. Une excellente discipline financière imposée par la contrainte réglementaire.
+        </p>
+    </div>
+</div>
+        <div class="card" style="background-color: #1e293b; border: 1px solid #0f172a; color: #f1f5f9; padding: 35px; box-shadow: 0 4px 15px rgba(15, 23, 42, 0.15); position: relative;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #3b82f6; padding-bottom: 15px; margin-bottom: 25px;">
+        <h3 style="margin: 0; padding: 0; background: transparent; border-left: none; color: #ffffff; font-size: 12pt; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700;">
+             Sentence Finale de la Cellule de Crise
+        </h3>
+        <div style="display: flex; align-items: center; background: #0f172a; padding: 6px 14px; border-radius: 6px; border: 1px solid #334155;">
+            <span style="font-size: 7.5pt; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-right: 10px; letter-spacing: 1px;">Risque Value Trap :</span>
+            <span style="font-size: 15pt; font-weight: 900; color: #10b981;">4,0 / 10</span>
+            <span class="badge-status status-go" style="margin-left: 10px; font-size: 7pt; min-width: 65px; padding: 2px 6px;">FAIBLE</span>
+        </div>
+    </div>
+
+    <p style="color: #cbd5e1; font-weight: 400; line-height: 1.8; text-align: justify; margin-bottom: 20px;">
+        La correction boursière subie par Adobe est le pur produit d'une angoisse sémantique excessive face à la transition vers l'IA générative et au départ à la retraite du CEO Shantanu Narayen. Les marchés ont surinterprété la cession de ses actions via son trust familial, alors qu'elle relève d'une planification successorale et fiscale standard. 
+    </p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0;">
+        <div style="background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 15px; text-align: center;">
+            <span style="font-size: 7.5pt; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Multiple PER Glissant Actuel</span>
+            <span style="display: block; font-size: 18pt; font-weight: 900; color: #ef4444; margin-top: 4px;">13,8x</span>
+            <span style="font-size: 7.5pt; color: #64748b; display: block; margin-top: 2px;">Anomalie comptable grossière</span>
+        </div>
+        <div style="background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 15px; text-align: center;">
+            <span style="font-size: 7.5pt; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Rentabilité du Capital (ROIC)</span>
+            <span style="display: block; font-size: 18pt; font-weight: 900; color: #10b981; margin-top: 4px;">35,7 %</span>
+            <span style="font-size: 7.5pt; color: #64748b; display: block; margin-top: 2px;">Rendement en progression constante</span>
+        </div>
+    </div>
+
+    <p style="color: #cbd5e1; font-weight: 400; line-height: 1.8; text-align: justify; margin-bottom: 20px;">
+        Loin d'être "endormi au volant", le management orchestre un pivot de premier ordre vers l'IA agentique et l'automatisation des flux de travail professionnels. L'intégration de Semrush consolidée en cash prouve la volonté de verrouiller le canal marketing, tandis que le programme massif de rachat d'actions de <strong>25 milliards de dollars</strong> témoigne d'une confiance absolue dans la trajectoire future du FCF. 
+    </p>
+
+    <p style="color: #f1f5f9; font-weight: 600; line-height: 1.8; text-align: justify; margin-bottom: 25px; border-left: 3px solid #10b981; padding-left: 15px; background: rgba(16, 185, 129, 0.05); padding-top: 10px; padding-bottom: 10px; border-radius: 0 4px 4px 0;">
+        Adobe n'est pas une "étoile morte", mais un géant du logiciel à son sommet opérationnel, dont la machine génère un flux de trésorerie opérationnel de <strong>$2,96 milliards de dollars par trimestre</strong>. Le dé-rating boursier actuel constitue une opportunité d'achat majeure pour l'investisseur discipliné.
+    </p>
+
+    <p style="font-size: 9pt; color: #94a3b8; margin-bottom: 0; font-style: italic; border-top: 1px dashed #334155; padding-top: 12px;">
+        <strong>Le Crible :</strong> Le marché traite ce dossier comme une entreprise dont les barrières s'évaporent sous les coups de boutoir des outils gratuits. C'est ignorer la puissance systémique des formats standards (PSD, PDF) et la forteresse d'un bilan sans dette nette. À ce niveau de valorisation, nous n'achetons pas une promesse technologique, nous achetons une rente récurrente bradée.
+    </p>
+</div>
+
+        <div class="card card-bordered-top">
+            <h2>Dispositif de Routage &amp; Arbitrage</h2>
+            <div class="insight-box insight-positive" style="background-color: #eff6ff; border-left-color: #3b82f6; color: #1e3a8a; margin-top: 0;">
+                <div style="font-weight: 800; text-transform: uppercase; margin-bottom: 8px;">ÉTAT DU ROUTAGE : L'ENTONNOIR D'INTÉGRITÉ</div>
+                <span class="text-positive" style="font-size: 11pt;">● [🟢 GO] : ACCÉLÉRATION DE L'ACHAT</span><br>
+                La structure financière d'Adobe présente toutes les caractéristiques d'un bunker d'actifs. Avec un Z-Score d'Altman calculé à 7,15 (seuil de sécurité à 2,99), un ratio de couverture des intérêts de 38,38x et un profil d'échéances obligataires à court terme parfaitement couvert par un trésor de guerre de $6,89 milliards de dollars de liquidités immédiates, le dossier franchit avec mention d'excellence le premier filtre de l'entonnoir d'intégrité financière. 
+                <br><br>
+                <b>La suite de notre travail quittera la froideur du bilan pour aller gratter là où ça fait mal : on va disséquer l'ADN profond de ce business pour voir si ses barrières historiques tiennent encore la route face aux outils gratuits, et on passera au crible la transition à la tête de la boîte pour comprendre si le départ du patron est une simple retraite ou le signal d'un navire qui prend l'eau.</b>
+            </div>
+            
+            <div class="grid-2col" style="margin-top: 25px;">
+                <div class="checklist-card" style="background-color: #f8fafc; border: 1px solid #cbd5e1;">
+                    <h3 style="margin-top: 0; padding-bottom: 10px; border-bottom: 2px solid #cbd5e1;">A. Profil Non-Détenteur (Prospective)</h3>
+                    <span class="badge-status status-go" style="margin: 10px 0;">BUY (CONTRARIEN)</span>
+                    <p style="font-size: 9.5pt; margin-top: 10px;">Le titre Adobe subit un dé-rating injustifié en raison d'une mauvaise appréciation de la menace concurrentielle de l'IA générative en libre accès. La puissance de feu de Firefly, la dominance absolue de ses formats de fichiers propriétaires PSD/PDF et l'intégration de Semrush assurent à la firme un taux de rétention de clientèle exceptionnel. Il convient de se positionner à l'achat pour viser un retour progressif vers sa valeur intrinsèque historique de long terme.</p>
+                </div>
+                <div class="checklist-card" style="background-color: #f0fdf4; border: 1px solid #86efac;">
+                    <h3 style="margin-top: 0; padding-bottom: 10px; border-bottom: 2px solid #86efac; color: #14532d;">B. Profil déjà Détenteur (Portefeuille)</h3>
+                    <span class="badge-status status-go" style="margin: 10px 0;">REINFORCE (AUDACE)</span>
+                    <p style="font-size: 9.5pt; color: #14532d; margin-top: 10px;">La baisse récente du cours ne découle en aucun cas d'une dégradation opérationnelle ou d'un affaiblissement du cash-flow, qui s'étables à un niveau somptueux de $2,96 milliards de dollars au Q1 2026. Le bilan est une forteresse financière inattaquable. L'investisseur à long terme doit mettre à profit cette correction boursière pour renforcer sa position et accumuler des titres à un multiple de valorisation historiquement bas (13,8x), soutenu par le programme de rachat d'actions de $25 milliards de dollars.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="disclaimer-box">
+            <strong>AVERTISSEMENT LÉGAL ET CLAUSE DE NON-RESPONSABILITÉ :</strong> Ce document est un rapport d'analyse financière fondamentale produit à des fins informatives et pédagogiques. Il ne constitue en aucun cas un conseil en investissement. L'auteur n'est pas un conseiller financier agréé. L'investissement en actions comporte des risques élevés de perte totale ou partielle du capital engagé. Source primaire : SEC EDGAR, Communiqué de résultats d'Adobe Inc. au 27 février 2026.
+        </div>
+
+        <div class="footer-insti">
+            CONFIDENTIEL – ACCÈS RESTREINT INSTITUTIONNEL | Rapport Adobe Diagnostic Structurel | Source : SEC EDGAR 2026
+        </div>
+    </div>
+</body>
+</html>
