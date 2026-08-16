@@ -1,1 +1,1678 @@
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAGSEGURO DIGITAL (NYSE : PAGS) — Rapport d'Analyse Pédagogique & Verdict Financier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   DESIGN SYSTEM : INSTITUTIONAL REPORT (DARK / CARD-BASED)
+   ========================================================================== */
+:root {
+  --bg-main: #0c1017;
+  --bg-surface: #151d2c;
+  --bg-surface-elevated: #1c273a;
+  --bg-surface-subtle: #0f1523;
+  
+  --border-subtle: #27354a;
+  --border-strong: #3b4d68;
+  --border-accent: #d4af37;
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  
+  --color-positive: #16a34a;
+  --color-positive-bg: rgba(22, 163, 74, 0.12);
+  --color-negative: #dc2626;
+  --color-negative-bg: rgba(220, 38, 38, 0.12);
+  --color-warning: #ea580c;
+  --color-warning-bg: rgba(234, 88, 12, 0.12);
+  --color-accent: #d4af37;
+  --color-accent-bg: rgba(212, 175, 55, 0.1);
+  --color-info: #3b82f6;
+  --color-info-bg: rgba(59, 130, 246, 0.12);
+  
+  --font-serif: "Charter", "Bitstream Charter", "Sitka Text", "Cambria", Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', "SF Mono", Menlo, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 15.5px;
+  line-height: 1.8;
+  letter-spacing: -0.01em;
+  padding: 0 0 100px 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+.report-wrapper {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ==========================================================================
+   ACRONYM HOVER TOOLTIPS (INFOBULLES PURES CSS)
+   ========================================================================== */
+.acronym {
+  position: relative;
+  cursor: help;
+  border-bottom: 1px dotted var(--color-accent);
+  font-weight: 600;
+  color: var(--text-primary);
+  display: inline-block;
+}
+
+.acronym::after {
+  content: attr(data-def);
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #0b1120;
+  color: #f8fafc;
+  border: 1px solid var(--border-accent);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  z-index: 1000;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+.acronym::before {
+  content: "";
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--border-accent) transparent transparent transparent;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.acronym:hover::after,
+.acronym:hover::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ==========================================================================
+   INFOGRAPHIC CONTAINERS (IMAGES DU RAPPORT)
+   ========================================================================== */
+.infographic-box {
+  margin: 24px 0 28px 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--bg-surface-subtle);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  text-align: center;
+}
+
+.infographic-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.infographic-caption {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 10px 16px;
+  background-color: #111827;
+  border-top: 1px solid var(--border-subtle);
+  text-align: left;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY
+   ========================================================================== */
+h1, h2, h3, h4 {
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  line-height: 1.25;
+  margin-bottom: 16px;
+}
+
+h2.section-header {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  line-height: 1.3;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+h2.section-header::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 22px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+}
+
+h3.block-title {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 700;
+  margin: 24px 0 14px 0;
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+h3.block-title::before {
+  content: "▪";
+  color: var(--color-accent);
+}
+
+p {
+  margin-bottom: 16px;
+  text-align: justify;
+  font-size: 15.5px;
+  color: var(--text-secondary);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+p strong, li strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Numbers Highlighting */
+.num {
+  font-family: var(--font-mono);
+  font-size: 0.95em;
+  color: #ffffff;
+}
+
+.num-neg {
+  color: #f87171;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.num-pos {
+  color: #4ade80;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.num-warn {
+  color: #fb923c;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   HEADER / HERO
+   ========================================================================== */
+.report-header {
+  background: linear-gradient(180deg, #111827 0%, var(--bg-main) 100%);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 40px 0 32px 0;
+  margin-bottom: 36px;
+}
+
+.meta-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.4);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.meta-tags {
+  display: flex;
+  gap: 16px;
+}
+
+.meta-tag-item strong {
+  color: var(--color-accent);
+}
+
+.hero-subtitle {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.5;
+  color: #cbd5e1;
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+.header-status-strip {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 16px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--color-negative);
+  padding: 16px 20px;
+  border-radius: 6px;
+}
+
+.status-block-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.status-block-value {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.status-block-value.destructive {
+  color: #f87171;
+}
+
+/* ==========================================================================
+   CONTENT CARDS & ENCADRÉS STRUCTURÉS
+   ========================================================================== */
+.content-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 32px 32px;
+  margin-bottom: 32px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.content-card-bordered-top {
+  border-top: 4px solid var(--border-strong);
+}
+
+.content-card-accent {
+  border-top: 4px solid var(--color-accent);
+}
+
+.analysis-box {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 20px 24px;
+  margin: 18px 0 22px 0;
+}
+
+/* Encadré Pédagogique */
+.plain-language-box {
+  background-color: rgba(30, 41, 59, 0.85);
+  border: 1px solid var(--border-strong);
+  border-left: 4px solid var(--color-info);
+  border-radius: 0 6px 6px 0;
+  padding: 16px 20px;
+  margin: 16px 0;
+}
+
+.plain-language-header {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-info);
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.plain-language-text {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #e2e8f0;
+}
+
+/* Verdict / Impact Actionnaire */
+.verdict-mini-box {
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  border-left: 4px solid var(--color-negative);
+  border-radius: 0 6px 6px 0;
+  padding: 14px 18px;
+  margin: 14px 0 20px 0;
+}
+
+.verdict-mini-header {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #f87171;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+.verdict-mini-text {
+  font-size: 14px;
+  line-height: 1.55;
+  color: #fca5a5;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   EXECUTIVE SUMMARY : EN 30 SECONDES
+   ========================================================================== */
+.exec-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.exec-card {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  padding: 16px 18px;
+  border-radius: 6px;
+}
+
+.exec-card-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.exec-card-metric {
+  font-family: var(--font-mono);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.exec-card-desc {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+.exec-dual-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.exec-strip-item {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  padding: 18px 20px;
+  border-radius: 6px;
+}
+
+.exec-strip-item.positive-edge {
+  border-left: 4px solid var(--color-positive);
+}
+
+.exec-strip-item.negative-edge {
+  border-left: 4px solid var(--color-negative);
+}
+
+/* ==========================================================================
+   FLASH KPI BANNER
+   ========================================================================== */
+.flash-kpi-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.flash-kpi-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  padding: 20px;
+  border-radius: 6px;
+  border-top: 3px solid var(--color-accent);
+}
+
+.flash-kpi-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.flash-kpi-value {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.flash-kpi-sub {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.flash-kpi-narrative {
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   CUSTOM BULLETS & LISTS
+   ========================================================================== */
+ul.custom-bullets {
+  list-style: none;
+  margin: 12px 0;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+ul.custom-bullets li {
+  position: relative;
+  padding-left: 22px;
+  color: var(--text-secondary);
+  font-size: 15px;
+  text-align: justify;
+}
+
+ul.custom-bullets li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   BLOCKQUOTES & MANAGEMENT DECODING
+   ========================================================================== */
+.management-quote-block {
+  margin: 22px 0;
+  border-left: 3px solid var(--border-strong);
+  background-color: var(--bg-surface-subtle);
+  padding: 20px 24px;
+  border-radius: 0 6px 6px 0;
+}
+
+blockquote {
+  font-family: var(--font-serif);
+  font-size: 16.5px;
+  font-style: italic;
+  line-height: 1.6;
+  color: #e2e8f0;
+  margin-bottom: 10px;
+}
+
+.quote-attribution {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.decoding-container {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--color-negative);
+  padding: 14px 18px;
+  border-radius: 0 4px 4px 0;
+}
+
+.decoding-tag {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-negative);
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+.decoding-text {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   EDITORIAL "À RETENIR" BOXES
+   ========================================================================== */
+.takeaway-box {
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--color-accent);
+  padding: 16px 20px;
+  margin-top: 24px;
+  border-radius: 0 6px 6px 0;
+}
+
+.takeaway-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.takeaway-content {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #cbd5e1;
+}
+
+/* ==========================================================================
+   DATA TABLES
+   ========================================================================== */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin: 20px 0 24px 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  background-color: var(--bg-surface-elevated);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: left;
+}
+
+thead th {
+  background-color: #121927;
+  color: #cbd5e1;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.4);
+  color: var(--text-secondary);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover td {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.col-mono { font-family: var(--font-mono); }
+.col-right { text-align: right; }
+.col-center { text-align: center; }
+
+/* ==========================================================================
+   DIAGRAMS & CODE BLOCKS
+   ========================================================================== */
+.flow-diagram {
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--color-negative);
+  border-radius: 6px;
+  padding: 18px 20px;
+  margin: 18px 0;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #cbd5e1;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* ==========================================================================
+   GRILLES (FLAGS & CHECKLIST)
+   ========================================================================== */
+.grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.sub-box {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.sub-box.positive-edge { border-top: 3px solid var(--color-positive); }
+.sub-box.critical-edge { border-top: 3px solid var(--color-negative); }
+
+.sub-box-title {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+
+.sub-box-title.positive { color: var(--color-positive); }
+.sub-box-title.critical { color: var(--color-negative); }
+
+.risk-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.risk-card {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 18px;
+}
+
+.risk-card.level-critical { border-top: 3px solid var(--color-negative); }
+.risk-card.level-important { border-top: 3px solid var(--color-warning); }
+
+.risk-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.risk-tag.critical { background-color: var(--color-negative-bg); color: #f87171; }
+.risk-tag.warning { background-color: var(--color-warning-bg); color: #fb923c; }
+
+.risk-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.risk-text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.risk-kpi-watch {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(51, 65, 85, 0.4);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   FINAL VERDICT (CARD MAÎTRESSE)
+   ========================================================================== */
+.final-verdict-box {
+  background-color: var(--bg-surface-subtle);
+  border: 2px solid var(--color-negative);
+  border-radius: 8px;
+  padding: 36px;
+  margin: 40px 0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+}
+
+.verdict-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.verdict-decision-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.verdict-decision-main {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 800;
+  color: #f87171;
+}
+
+.verdict-scores-strip {
+  display: flex;
+  gap: 32px;
+}
+
+.v-score-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.v-score-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.v-score-val {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--color-accent);
+}
+
+.verdict-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 20px;
+}
+
+.verdict-col h4 {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.verdict-col.danger h4 { color: #f87171; }
+.verdict-col.invalidation h4 { color: var(--color-accent); }
+
+.verdict-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.verdict-list li {
+  font-size: 14px;
+  line-height: 1.5;
+  padding-left: 18px;
+  position: relative;
+}
+
+.verdict-list.danger-list li::before {
+  content: "×";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #f87171;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.verdict-list.invalidation-list li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--color-accent);
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 900px) {
+  h1 { font-size: 28px; }
+  .exec-summary-grid, .flash-kpi-container, .grid-2col, .risk-grid, .exec-dual-strip, .verdict-columns {
+    grid-template-columns: 1fr;
+  }
+  .header-status-strip {
+    grid-template-columns: 1fr;
+  }
+  .verdict-top-bar {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .verdict-scores-strip {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .content-card {
+    padding: 24px 18px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO HEADER -->
+<header class="report-header">
+  <div class="report-wrapper">
+    <div class="meta-top">
+      <div class="meta-tags">
+        <span class="meta-tag-item">ÉQUITY RESEARCH // <strong>MARCHÉS ÉMERGENTS</strong></span>
+        <span class="meta-tag-item">COUVERTURE : <strong>PAGS (NYSE)</strong></span>
+      </div>
+      <div>DATE DU RAPPORT : 16 AOÛT 2026</div>
+    </div>
+    
+    <h1>PAGSEGURO DIGITAL (NYSE : PAGS) : L'ILLUSION DU MIRACLE FINTECH ET LA TRAPPE DU DIVIDENDE PERFUSÉ</h1>
+    <div class="hero-subtitle">Autopsie financière d'un modèle d'acquisition en stagnation séculaire, pris en étau entre le rouleau compresseur du système public instantané, un refinancement à taux restrictif et la dépendance d'une holding de contrôle.</div>
+    
+    <div class="header-status-strip">
+      <div>
+        <div class="status-block-label">Verdict & Action Finale</div>
+        <div class="status-block-value destructive">EXCLUSION DÉFINITIVE // SIZING 0%</div>
+      </div>
+      <div>
+        <div class="status-block-label">Cours Pivot</div>
+        <div class="status-block-value">9,50 USD</div>
+      </div>
+      <div>
+        <div class="status-block-label">Cours Cible (5 Ans)</div>
+        <div class="status-block-value">8,35 USD</div>
+      </div>
+      <div>
+        <div class="status-block-label">Conviction</div>
+        <div class="status-block-value destructive">0 / 10</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="report-wrapper">
+
+  <!-- EN 30 SECONDES (SCORECARDS) -->
+  <section class="content-card content-card-accent">
+    <h2 class="section-header">En 30 Secondes</h2>
+    <div class="exec-summary-grid">
+      <div class="exec-card">
+        <div class="exec-card-title">Décision Finale</div>
+        <div class="exec-card-metric destructive">ÉVITER</div>
+        <div class="exec-card-desc">Exclusion définitive du portefeuille modèle. Aucun engagement de capital permis.</div>
+      </div>
+      <div class="exec-card">
+        <div class="exec-card-title">Qualité Intrinsèque</div>
+        <div class="exec-card-metric">34 / 100</div>
+        <div class="exec-card-desc">Double SOFT STOP validé. Commodité d'intermédiation sans pricing power.</div>
+      </div>
+      <div class="exec-card">
+        <div class="exec-card-title">Valorisation TTM</div>
+        <div class="exec-card-metric"><span class="acronym" data-def="Price-to-Earnings Ratio – ratio cours sur bénéfices">PER</span> 6,6x</div>
+        <div class="exec-card-desc">Value Trap classique masquant un TSR projeté médiocre de 6,86% par an.</div>
+      </div>
+      <div class="exec-card">
+        <div class="exec-card-title">Niveau de Risque</div>
+        <div class="exec-card-metric destructive">CRITIQUE</div>
+        <div class="exec-card-desc">Verdict Lollapalooza actif : spirale négative taux, crédit PME et holding.</div>
+      </div>
+    </div>
+    
+    <div class="exec-dual-strip">
+      <div class="exec-strip-item positive-edge">
+        <div class="exec-card-title">Principal Moteur de Création de Valeur</div>
+        <p style="font-size: 13.5px; margin: 0; text-align: left;">Base de dépôts régulés de <span class="num">42,79 milliards BRL</span> permettant de maintenir un coût de refinancement stabilisé à <span class="num">83%</span> du taux <span class="acronym" data-def="Certificado de Depósito Interbancário – taux interbancaire de référence au Brésil">CDI</span> face aux banques traditionnelles.</p>
+      </div>
+      <div class="exec-strip-item negative-edge">
+        <div class="exec-card-title">Principal Risque d'Effondrement</div>
+        <p style="font-size: 13.5px; margin: 0; text-align: left;">Suspension inévitable du dividende annuel de <span class="num">1,40 milliard BRL</span> suite à l'asphyxie du FCF réel et à l'explosion des défauts sur les prêts PME non sécurisés.</p>
+      </div>
+    </div>
+
+    <!-- INFOGRAPHIE PAGE 1 : COUVERTURE & VERDICT CHOC -->
+    <div class="infographic-box" style="margin-top: 24px;">
+      <img src="https://github.com/MIka-qualityvalue/analyses/blob/main/PagSeguro_Forensic_Autopsy-01.jpg?raw=true" alt="Autopsie d'un Piège de Valeur - Rejet Total PAGS" class="infographic-img">
+      <div class="infographic-caption">Figure 1 : Synthèse Visuelle de l'Audit — Rejet Total et Piège de Valeur[cite: 1]</div>
+    </div>
+  </section>
+
+  <!-- FLASH KPI BANNER -->
+  <section class="flash-kpi-container">
+    <div class="flash-kpi-card">
+      <div class="flash-kpi-name">FCF Réel Semestriel</div>
+      <div class="flash-kpi-value num-neg">855 M BRL</div>
+      <div class="flash-kpi-sub num-neg">▼ -62,4% YoY</div>
+      <div class="flash-kpi-narrative">Effondrement par rapport aux 2 274,2 M BRL du S1 2025 sous l'effet du besoin de financement du crédit.</div>
+    </div>
+    <div class="flash-kpi-card">
+      <div class="flash-kpi-name">Couverture des Intérêts</div>
+      <div class="flash-kpi-value num-neg">1,48x</div>
+      <div class="flash-kpi-sub num-neg">Alerte &lt; 3,0x</div>
+      <div class="flash-kpi-narrative">EBIT / Charges financières écrasé par le taux Selic à 13,90% et 47,2 Md BRL de passifs flottants.</div>
+    </div>
+    <div class="flash-kpi-card">
+      <div class="flash-kpi-name">Croissance Réelle CA</div>
+      <div class="flash-kpi-value num-warn">-2,7%</div>
+      <div class="flash-kpi-sub num-warn">Nominal +1,8%</div>
+      <div class="flash-kpi-narrative">Incapacité structurelle à indexer les tarifs face à une inflation locale mesurée à 4,5%.</div>
+    </div>
+    <div class="flash-kpi-card">
+      <div class="flash-kpi-name">Prêts PME (Working Cap)</div>
+      <div class="flash-kpi-value num-pos">+204%</div>
+      <div class="flash-kpi-sub num-neg">Pertes Prêts +165%</div>
+      <div class="flash-kpi-narrative">Fuite en avant agressive sur le crédit non garanti au pire moment du cycle monétaire brésilien.</div>
+    </div>
+  </section>
+
+  <!-- RÉSUMÉ NARRATIF : L'ACCROCHE (CARD ENCADRÉE) -->
+  <section class="content-card content-card-bordered-top">
+    <h2 class="section-header">Résumé Narratif — L'Accroche</h2>
+    <div class="analysis-box">
+      <p>Le narratif officiel de Wall Street adore les contes de fées technologiques en terre émergente : une fintech brésilienne à forte croissance qui démocratise l'accès bancaire, génère plus de <span class="num">2,1 milliards BRL</span> de bénéfice net annuel, et se paye le luxe d'afficher un <span class="acronym" data-def="Price-to-Earnings Ratio – ratio cours sur bénéfices">PER</span> modeste de <span class="num">6,6x</span> tout en promettant un rendement du dividende de près de <span class="num">10%</span>. Pour l'investisseur distrait, PagSeguro (opérant sous la marque commerciale PagBank) ressemble au Saint Graal de la décote boursière. Pour l'Initié Désabusé qui a plongé les mains dans la tuyauterie des comptes réglementaires, c'est un cas d'école de piège de valeur (<em>Value Trap</em>) en fin de cycle d'intermédiation transactionnelle.</p>
+      
+      <!-- INFOGRAPHIE PAGE 2 : ILLUSION VS RÉALITÉ -->
+      <div class="infographic-box">
+        <img src="https://github.com/MIka-qualityvalue/analyses/blob/main/PagSeguro_Forensic_Autopsy-02.jpg?raw=true" alt="L'Illusion du Marché vs La Réalité des Comptes" class="infographic-img">
+        <div class="infographic-caption">Figure 2 : Ce que le Marché voit vs Ce que l'Autopsie Approfondie Révèle[cite: 1]</div>
+      </div>
+
+      <p>La réalité opérationnelle brute est impitoyable : le cœur historique du métier — vendre des terminaux jaunes à des petits commerçants pour prélever une dîme sur leurs transactions par carte — est entré en phase de mort cérébrale avec une croissance organique réelle négative face à l'inflation brésilienne et au rouleau compresseur gratuit du système public de paiement instantané <span class="acronym" data-def="Système public brésilien de paiement instantané universel et gratuit">PIX</span>. Pour maintenir les apparences d'une expansion et honorer le paiement de <span class="num">1,40 milliard BRL</span> de dividendes annuels exigés par sa maison-mère <strong>Universo Online S.A. (UOL)</strong>, la direction pratique une fuite en avant risquée dans le crédit non sécurisé aux <span class="acronym" data-def="Petites et Moyennes Entreprises">PME</span> tout en activant massivement ses frais généraux et ses actions gratuites au bilan pour sauver les apparences comptables du résultat net.</p>
+      <p>La question centrale à résoudre n'est pas de savoir si PagSeguro est « statistiquement bon marché », mais si la rentabilité affichée est une création de valeur pérenne ou un mirage comptable financé par la dette bancaire et des artifices d'activation d'actifs incorporels.</p>
+      
+      <div class="plain-language-box">
+        <div class="plain-language-header">Ce que cela signifie pour l'actionnaire :</div>
+        <div class="plain-language-text">
+          Ne vous laissez pas séduire par le cours bas ou le gros dividende affiché. L'entreprise ne gagne plus d'argent frais avec ses terminaux de paiement classiques et tente de compenser en prêtant de l'argent risqué à des petits commerçants. C'est un piège classique où les bénéfices affichés sur le papier ne rentrent pas en cash réel dans la caisse.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- L'ÉPREUVE DE VÉRITÉ (CARD ENCADRÉE) -->
+  <section class="content-card content-card-bordered-top">
+    <h2 class="section-header">L'Épreuve de Vérité : Plomberie Comptable et Bilan de Survie</h2>
+    <p>L'expertise d'investigation menée sur les états financiers certifiés du <strong>Formulaire 6-K</strong> (Rapport semestriel clos au 30 juin 2026 déposé auprès de la <span class="acronym" data-def="Securities and Exchange Commission – autorité fédérale américaine des marchés financiers">SEC</span> le 11 août 2026) met en lumière une fracture nette entre le bénéfice net affiché et la réalité du cash.</p>
+
+    <div class="flow-diagram">Plomberie du Cash Semestriel (S1 2025 vs S1 2026 en Millions BRL) :
+S1 2025 : [Résultat Net : 1 061,9] ───> [OCF : 3 451,8] ───> [CapEx : 1 177,6] ───> [FCF : 2 274,2]
+S1 2026 : [Résultat Net : 1 094,6] ───> [OCF : 1 938,6] ───> [CapEx : 1 083,7] ───> [FCF :   855,0] (-62,4%)</div>
+
+    <h3 class="block-title">Beneish M-Score, Accruals et Qualité des Résultats</h3>
+    <div class="analysis-box">
+      <p>Bien que le modèle Beneish M-Score standard soit conçu pour les entreprises industrielles et perde de sa précision sur les structures financières hautement intermédiées, ses sous-composantes d'agressivité de reconnaissance de revenu déclenchent une alerte. La société comptabilise <span class="num">10,09 milliards BRL</span> de revenus au S1 2026 (+1,79% par rapport aux 9,91 Md BRL du S1 2025), mais les créances brutes progressent plus vite (+2,03% à 57,20 Md BRL).</p>
+      <p>Le ratio d'accruals, défini par la formule <span class="col-mono">(Résultat Net - OCF) / Total Actif</span>, s'établit à <span class="num-neg">-1,11%</span> <span class="col-mono">(1 094,6 M - 1 938,6 M) / 75 697,5 M</span> au S1 2026. Ce ratio négatif en apparence rassurant est en réalité le produit d'une distorsion : l'<span class="acronym" data-def="Operating Cash Flow – flux de trésorerie opérationnel">OCF</span> de <span class="num">1,94 milliard BRL</span> est dopé par <span class="num">3,32 milliards BRL</span> d'émissions nettes d'instruments bancaires et <span class="num">996,2 millions BRL</span> d'obligations <span class="acronym" data-def="Fundo de Investimento em Direitos Creditórios – fonds de titrisation de créances">FIDC</span>. Sans ce levier bancaire, le cash opérationnel pur serait lourdement négatif.</p>
+      <p>Le <span class="acronym" data-def="Cash Conversion Ratio – ratio de conversion du résultat net en cash opérationnel">CCR</span> matérialise l'asphyxie : mesuré par le ratio <span class="col-mono">OCF / Résultat Net</span>, il s'effondre de <span class="num">3,25x au S1 2025</span> à <span class="num-neg">1,77x au S1 2026</span> (une purge de <span class="num-neg">-45,5%</span>).</p>
+      
+      <div class="plain-language-box">
+        <div class="plain-language-header">Ce que cela signifie pour l'actionnaire :</div>
+        <div class="plain-language-text">
+          Une entreprise saine doit voir son cash réel croître en même temps que ses bénéfices. Ici, les bénéfices progressent de 3%, mais le cash réel disponible a chuté de 62,4%. Le reste est financé par de la dette bancaire de court terme.
+        </div>
+      </div>
+      
+      <div class="verdict-mini-box">
+        <div class="verdict-mini-header">Verdict Comptable</div>
+        <div class="verdict-mini-text">La qualité des bénéfices est très faible : le résultat comptable est artificiellement maintenu par des dépôts bancaires et ne reflète pas une création de liquidités saine.</div>
+      </div>
+    </div>
+
+    <h3 class="block-title">DSRI, Stocks et Reverse Factoring Bancarisé</h3>
+    <div class="analysis-box">
+      <p>L'indice <span class="acronym" data-def="Days Sales in Receivables Index – indice d'évolution des délais de paiement clients">DSRI</span> reste stable autour de 1,00x, les créances d'intermédiation de cartes (57,20 Md BRL) étant adossées à un mécanisme contractuel de règlement à J+27 garanti par les réseaux internationaux (Visa, Mastercard, Elo). Les stocks physiques sont inexistants, les terminaux <span class="acronym" data-def="Point of Sale – terminal de paiement électronique">POS</span> étant immobilisés à l'actif corporel et amortis sur cinq ans (Note 12).</p>
+      <p>En revanche, PagSeguro pratique une variante financière sophistiquée du <em>Reverse Factoring</em>. Les dettes envers les commerçants marchands (<em>Payables to third parties</em>) ont diminué de <span class="num">1,00 milliard BRL</span> au S1 2026 (tombant à 9,79 Md BRL contre 10,84 Md BRL fin 2025) sous l'effet de l'accélération des demandes de prépaiement. Pour financer ce fonds de roulement sans détruire sa trésorerie, la banque a dû émettre <span class="num">3,32 Md BRL</span> de certificats de dépôts supplémentaires sur le marché.</p>
+    </div>
+
+    <h3 class="block-title">La Fabrique à Incorporels : R&D en CapEx et Dérives Non-GAAP</h3>
+    <div class="analysis-box">
+      <p>L'examen approfondi des charges opérationnelles met au jour une politique agressive d'activation d'actifs incorporels :</p>
+      <ul class="custom-bullets">
+        <li>Au premier semestre 2026, <span class="num-neg">610,7 millions BRL</span> de dépenses de développement technologique et de logiciels ont été inscrits à l'actif (<span class="acronym" data-def="Capital Expenditure – dépenses d'investissement">CapEx</span> incorporel) au lieu d'être passés en <span class="acronym" data-def="Operating Expenses – dépenses d'exploitation courantes">OpEx</span>. Le bilan accumule ainsi <span class="num">3,24 milliards BRL d'actifs incorporels</span> (dont 2,86 Md BRL de logiciels capitalisés en interne).</li>
+        <li>La Note 26(ii) du Formulaire 6-K dévoile que la direction a directement <strong>capitalisé 65,1 millions BRL de rémunérations en actions</strong> au titre du plan <span class="acronym" data-def="Long-Term Incentive Plan – plan d'incitation à long terme en actions gratuites">LTIP</span> dans ses actifs incorporels au S1 2026 (contre 51,1 M BRL au S1 2025). Transférer des rémunérations managériales et des salaires en immobilisations incorporelles pour gonfler l'<span class="acronym" data-def="Earnings Before Interest, Taxes, Depreciation and Amortization – résultat brut opérationnel">EBITDA</span> et le <span class="acronym" data-def="Bénéfice Par Action (Earnings Per Share)">BPA</span> est un artifice comptable majeur.</li>
+        <li>Cette pratique permet d'exploiter à plein les exonérations fiscales de la <em>Lei do Bem</em> (loi brésilienne de soutien à l'innovation), ramenant la charge d'impôt effective à un taux dérisoire de <span class="num-pos">12%</span> (soit 168,7 M BRL d'économie semestrielle) face à un taux légal théorique de 37% pour les institutions financières brésiliennes.</li>
+        <li>En parallèle, le management met en avant son résultat net ajusté Non-GAAP de 576 M BRL au T2 2026 (+2% sur un an), reléguant au second plan le fait que le bénéfice brut (*Gross Profit*) ne progresse que de +2% sur l'ensemble du semestre, très en deçà de la guidance de +6% à +9% promise aux marchés.</li>
+      </ul>
+
+      <!-- INFOGRAPHIE PAGE 5 : ILLUSION DU BÉNÉFICE NET -->
+      <div class="infographic-box">
+        <img src="https://github.com/MIka-qualityvalue/analyses/blob/main/PagSeguro_Forensic_Autopsy-05.jpg?raw=true" alt="Autopsie des Accruals et R&D Capitalisée" class="infographic-img">
+        <div class="infographic-caption">Figure 3 : Cascade des Transferts Comptables Gonflant Artificiellement le Bénéfice[cite: 1]</div>
+      </div>
+      
+      <div class="plain-language-box">
+        <div class="plain-language-header">Ce que cela signifie pour l'actionnaire :</div>
+        <div class="plain-language-text">
+          Au lieu de compter les salaires et développements informatiques comme des dépenses normales qui réduisent le bénéfice, l'entreprise les range dans ses « investissements » au bilan. Résultat : le bénéfice paraît plus gros qu'il ne l'est vraiment et les impôts payés sont anormalement bas.
+        </div>
+      </div>
+    </div>
+
+    <h3 class="block-title">Altman Z-Score, Couverture des Intérêts et Mur d'Engagements</h3>
+    <div class="analysis-box">
+      <p>Le Z-Score d'Altman standard ressort à <span class="num-neg">Z = 1,12</span> (zone de détresse), faussé par le modèle d'intermédiation de bilan. Le modèle adapté aux services émergents s'établit à <span class="num-warn">Z'' = 3,03</span> (zone grise), soutenu par un fonds de roulement comptable de 23,39 milliards BRL.</p>
+      <p>L'indicateur le plus alarmant réside dans la couverture des charges financières : le ratio <span class="col-mono">EBIT / Charges Financières</span> s'effondre à <span class="num-neg">1,48x au S1 2026</span> (3 862,4 M BRL / 2 614,6 M BRL). L'entreprise consacre la quasi-totalité de son excédent opérationnel à payer les intérêts de ses dépôts et obligations dans un contexte où le taux directeur <strong>Selic</strong> est maintenu à <span class="num-neg">13,90%</span>.</p>
+
+      <!-- INFOGRAPHIE PAGE 6 : LE MUR DE LA DETTE -->
+      <div class="infographic-box">
+        <img src="https://github.com/MIka-qualityvalue/analyses/blob/main/PagSeguro_Forensic_Autopsy-06.jpg?raw=true" alt="Le Mur de la Dette à Court Terme vs Liquidités" class="infographic-img">
+        <div class="infographic-caption">Figure 4 : Échéances à Moins de 12 Mois (42,8 Md BRL) face aux Liquidités Réelles (1,39 Md BRL)[cite: 1]</div>
+      </div>
+
+      <p>L'échéancier contractuel non actualisé (Note 28) révèle un mur d'engagements de <span class="num-neg">42,80 milliards BRL exigibles à moins de 12 mois</span> (dont 22,33 Md BRL à moins de 30 jours), face à une réserve de liquidités immédiatement mobilisables de seulement <span class="num">1,39 milliard BRL</span> (623,7 M BRL de cash et 762,9 M BRL de titres liquides). L'exposition nette négative au taux flottant CDI atteint <span class="num-neg">-41,42 milliards BRL</span>. Un stress-test appliquant une hausse de taux de +300 bps (+3,0%) générerait une charge financière annuelle brute supplémentaire de <span class="num-neg">1,24 milliard BRL</span> (621,3 M BRL par semestre). Dans ce scénario, le <span class="acronym" data-def="Free Cash Flow – flux de trésorerie disponible réel">FCF</span> semestriel chuterait à 233,7 M BRL, rendant le dividende promis de 1,40 Md BRL totalement insoutenable (déficit de liquidité de -930 M BRL).</p>
+
+      <!-- INFOGRAPHIE PAGE 7 : STRESS TEST ASPHYXIE TAUX -->
+      <div class="infographic-box">
+        <img src="https://github.com/MIka-qualityvalue/analyses/blob/main/PagSeguro_Forensic_Autopsy-07.jpg?raw=true" alt="Stress-Test : L'Asphyxie par les Taux" class="infographic-img">
+        <div class="infographic-caption">Figure 5 : Chute du Free Cash Flow en cas de Hausse des Taux Directeurs (+300 bps)[cite: 1]</div>
+      </div>
+      
+      <div class="verdict-mini-box">
+        <div class="verdict-mini-header">Verdict Solvabilité & Survie</div>
+        <div class="verdict-mini-text">La marge de manœuvre est minuscule. Si les taux d'intérêt restent élevés au Brésil, la société devra choisir entre payer ses intérêts de dette ou couper son dividende aux actionnaires.</div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Métrique de Plomberie Comptable</th>
+            <th class="col-right">S1 2025</th>
+            <th class="col-right">S1 2026</th>
+            <th class="col-center">Variation / Seuil</th>
+            <th>Diagnostic de l'Initié</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Résultat Net Comptable</strong></td>
+            <td class="col-right col-mono">1 061,9 M BRL</td>
+            <td class="col-right col-mono">1 094,6 M BRL</td>
+            <td class="col-center num">+3,1%</td>
+            <td>Illusion d'une profitabilité pérenne.</td>
+          </tr>
+          <tr>
+            <td><strong>Flux Opérationnel (OCF)</strong></td>
+            <td class="col-right col-mono">3 451,8 M BRL</td>
+            <td class="col-right col-mono">1 938,6 M BRL</td>
+            <td class="col-center num-neg">-43,8%</td>
+            <td>Contraction masquée par les dépôts clients.</td>
+          </tr>
+          <tr>
+            <td><strong>CapEx Total (Matériel + Incorporel)</strong></td>
+            <td class="col-right col-mono">1 177,6 M BRL</td>
+            <td class="col-right col-mono">1 083,7 M BRL</td>
+            <td class="col-center num">-8,0%</td>
+            <td>Dont 610,7 M BRL de R&D/LTIP capitalisés.</td>
+          </tr>
+          <tr>
+            <td><strong>Free Cash Flow (FCF) Réel</strong></td>
+            <td class="col-right col-mono">2 274,2 M BRL</td>
+            <td class="col-right col-mono">855,0 M BRL</td>
+            <td class="col-center num-neg">-62,4%</td>
+            <td>Asphyxie directe de la caisse distribuable.</td>
+          </tr>
+          <tr>
+            <td><strong>Ratio de Couverture EBIT / Intérêts</strong></td>
+            <td class="col-right col-mono">~1,55x</td>
+            <td class="col-right col-mono">1,48x</td>
+            <td class="col-center num-neg">&lt; 3,00x</td>
+            <td>Zone de détresse financière face au taux Selic.</td>
+          </tr>
+          <tr>
+            <td><strong>Engagements Exigibles à &le; 12 Mois</strong></td>
+            <td class="col-right col-mono">39,71 Md BRL</td>
+            <td class="col-right col-mono">42,80 Md BRL</td>
+            <td class="col-center num-neg">69,7% total</td>
+            <td>Dépendance absolue au refinancement continu.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="takeaway-box">
+      <div class="takeaway-label">À Retenir — Diagnostic Vital</div>
+      <div class="takeaway-content">Le bénéfice net de 1,09 milliard BRL est un artifice comptable soutenu par l'activation de 610,7 M BRL de frais et une subvention fiscale précaire, tandis que le FCF réel s'est effondré de 62,4% et que la couverture des charges financières ne tient qu'à un fil (1,48x).</div>
+    </div>
+  </section>
+
+  <!-- LA PHYSIQUE DU MOAT (CARD ENCADRÉE) -->
+  <section class="content-card content-card-bordered-top">
+    <h2 class="section-header">La Physique du Moat et l'Oracle de Disruption</h2>
+    
+    <h3 class="block-title">Nature du Moat : L'Érosion d'une Commodité</h3>
+    <div class="analysis-box">
+      <p>Le modèle historique de PagSeguro reposait sur des économies d'échelle partagées, consistant à saturer le marché brésilien de terminaux POS à bas prix auprès des micro-entrepreneurs. Cet avantage d'échelle s'est aujourd'hui transformé en piège opérationnel :</p>
+      <ul class="custom-bullets">
+        <li><strong>Absence Totale de Pricing Power :</strong> Au S1 2026, la croissance nominale du chiffre d'affaires (+1,79%) est inférieure à l'inflation brésilienne (IPCA à ~4,5%), matérialisant une <span class="num-neg">croissance réelle négative de -2,7%</span>. La société est incapable de répercuter l'inflation sur ses clients : toute tentative d'augmentation des commissions entraîne une résiliation immédiate (<em>churn</em>) au profit de concurrents comme StoneCo ou vers les paiements directs.</li>
+        <li><strong>Coûts de Changement Nuls :</strong> Le commerçant de rue n'a aucune dépendance logicielle. Changer de boîtier d'encaissement prend 24 heures et ne génère aucun coût de transition.</li>
+        <li><strong>Effet de Réseau Factice :</strong> L'entreprise ne bénéficie d'aucun effet de réseau bilatéral : les paiements transitent par les réseaux ouverts Visa et Mastercard ou par l'infrastructure publique PIX, réduisant PagSeguro au rang de prestataire technique interchangeable.</li>
+      </ul>
+
+      <!-- INFOGRAPHIE PAGE 3 : MOAT DÉTRUIT PAR LE RÉSEAU PUBLIC -->
+      <div class="infographic-box">
+        <img src="https://github.com/MIka-qualityvalue/analyses/blob/main/PagSeguro_Forensic_Autopsy-03.jpg?raw=true" alt="Le Moat Détruit par le Réseau Public PIX" class="infographic-img">
+        <div class="infographic-caption">Figure 6 : L'Ancien Monde des Terminaux vs Le Rouleau Compresseur Public PIX / Drex[cite: 1]</div>
+      </div>
+      
+      <div class="plain-language-box">
+        <div class="plain-language-header">Ce que cela signifie pour l'actionnaire :</div>
+        <div class="plain-language-text">
+          Le "Moat" est le fossé qui protège une entreprise de ses concurrents (comme Apple ou Coca-Cola). PagSeguro n'en a aucun : un commerçant peut changer de terminal pour un concurrent en un clic si les frais augmentent. L'entreprise ne peut donc pas monter ses prix pour compenser l'inflation.
+        </div>
+      </div>
+    </div>
+
+    <h3 class="block-title">Résilience Historique et Rentabilité du Capital Bancaire</h3>
+    <div class="analysis-box">
+      <p>Pour une institution bancaire comme PagBank, les dépôts et la dette de court terme (42,8 Md BRL) constituent la matière première d'exploitation et non une simple structure de capital. Ainsi, la rentabilité économique intrinsèque est mesurée par le <span class="acronym" data-def="Return on Equity – rentabilité des capitaux propres">ROE</span> et le <span class="acronym" data-def="Return on Tangible Common Equity – rentabilité des capitaux propres tangibles nets d'incorporels">ROTCE</span> confrontés au coût des fonds propres <span class="acronym" data-def="Cost of Equity – coût des capitaux propres exigé par les investisseurs">K<sub>e</sub></span> :</p>
+      <ul class="custom-bullets">
+        <li><strong>ROE constaté :</strong> <span class="num">14,33%</span> sur 12 mois glissants (2 151,1 M BRL / 15 015,9 M BRL).</li>
+        <li><strong>ROTCE tangible :</strong> <span class="num">18,27%</span> lorsque les 3,24 milliards BRL d'actifs incorporels et de goodwill sont déduits des capitaux propres.</li>
+        <li><strong>Coût des fonds propres (K<sub>e</sub>) :</strong> Estimé entre <span class="num-neg">16,0% et 18,0%</span> (taux sans risque Selic à 13,90% augmenté d'une prime de risque actions de 4,0%).</li>
+      </ul>
+      <p>Avec un ROE de <span class="num">14,33%</span> strictement inférieur au coût des fonds propres de <span class="num-neg">&gt; 16%</span>, <strong>l'entreprise détruit structurellement de la valeur économique nette pour l'actionnaire</strong>.</p>
+
+      <!-- INFOGRAPHIE PAGE 4 : DESTRUCTION DE VALEUR STRUCTURELLE -->
+      <div class="infographic-box">
+        <img src="https://github.com/MIka-qualityvalue/analyses/blob/main/PagSeguro_Forensic_Autopsy_(2)-04.jpg?raw=true" alt="Destruction de Valeur Structurelle : ROIC vs WACC" class="infographic-img">
+        <div class="infographic-caption">Figure 7 : L'Enclume du Coût du Capital Écrasant la Rentabilité des Fonds Propres[cite: 1]</div>
+      </div>
+      
+      <div class="verdict-mini-box">
+        <div class="verdict-mini-header">Verdict Rentabilité Économique</div>
+        <div class="verdict-mini-text">L'entreprise rapporte 14,3% sur ses fonds propres alors que le coût de l'argent au Brésil est de 16% à 18%. Elle détruit donc de la valeur nette chaque année par rapport à un simple placement d'État sans risque.</div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Métrique Stratégique LTM</th>
+            <th>PagSeguro (NYSE: PAGS)</th>
+            <th>StoneCo Ltd. (NASDAQ: STNE)</th>
+            <th>Nu Holdings (NYSE: NU)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Croissance CA (YoY)</strong></td>
+            <td class="num-neg">+1,8% (Stagnation réelle)</td>
+            <td class="num">+4,3% à +7,0%</td>
+            <td class="num-pos">+40,0% à +50,0%</td>
+          </tr>
+          <tr>
+            <td><strong>Rentabilité des Fonds Propres (ROE)</strong></td>
+            <td class="num-neg">14,33%</td>
+            <td class="num">17,50%</td>
+            <td class="num-pos">28,50%</td>
+          </tr>
+          <tr>
+            <td><strong>Nature de la Douve Concurrentielle</strong></td>
+            <td>Matériel POS banalisé</td>
+            <td>Logiciels ERP intégrés PME</td>
+            <td>Effet de marque & Coût d'acquisition nul</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="block-title">PRE-MORTEM 2030 : Les Vecteurs d'Obsolescence Terminale</h3>
+    <div class="analysis-box">
+      <p>Si PagSeguro perd 80% de sa valeur ou fait faillite d'ici 2030, la cause de son effondrement ne sera pas une surprise mais l'aboutissement de vulnérabilités déjà visibles :</p>
+      <ul class="custom-bullets">
+        <li><strong>Désintermédiation par PIX et Drex :</strong> Le déploiement par la Banque centrale du Brésil de <em>PIX Automático</em> (prélèvements automatiques sans carte) et de la monnaie numérique programmable <em>Drex (Real Digital)</em> court-circuite les commissions d'interchange traditionnelles. Le boîtier physique jaune devient un composant inutile face au paiement instantané direct de compte à compte.</li>
+        <li><strong>Engagements Matériels en Devises :</strong> PagSeguro est engagée sur <span class="num-neg">604,4 millions BRL (116,8 M USD) d'achats fermes de terminaux</span> auprès de constructeurs étrangers (Note 28), subissant la hausse des coûts des composants et le risque de dépréciation du réal brésilien.</li>
+        <li><strong>Épée de Damoclès Fiscale :</strong> L'entreprise fait face à <span class="num-neg">1,30 milliard BRL de litiges fiscaux et civils</span> classés en perte possible (Note 20), incluant un redressement de 386,9 M BRL sur l'<span class="acronym" data-def="Imposto sobre Operações Financeiras – taxe brésilienne sur les opérations financières">IOF</span> et 201,9 M BRL sur les déductions PIS/COFINS. La confirmation de ces sanctions effacerait plus de six mois de bénéfices.</li>
+      </ul>
+
+      <!-- INFOGRAPHIE PAGE 12 (PRE-MORTEM) : CATALYSEURS D'EFFONDREMENT -->
+      <div class="infographic-box">
+        <img src="https://github.com/MIka-qualityvalue/analyses/blob/main/PagSeguro_Forensic_Autopsy-14.jpg?raw=true" alt="Pre-Mortem 2030 : Les Catalyseurs de l'Effondrement" class="infographic-img">
+        <div class="infographic-caption">Figure 8 : Les 3 Catalyseurs Majeurs d'une Destruction de Valeur Terminale[cite: 1]</div>
+      </div>
+    </div>
+
+    <div class="takeaway-box">
+      <div class="takeaway-label">À Retenir — Avantage Concurrentiel</div>
+      <div class="takeaway-content">L'avantage compétitif historique des terminaux est anéanti par l'infrastructure publique gratuite PIX, tandis que le ROE réel (14,33%) est inférieur au coût des fonds propres (> 16%), attestant d'une commodité en voie de désintermédiation.</div>
+    </div>
+  </section>
+
+  <!-- CYCLE, MATURITÉ ET ALLOCATION DU CAPITAL (CARD ENCADRÉE) -->
+  <section class="content-card content-card-bordered-top">
+    <h2 class="section-header">Cycle, Maturité et Architecte du Capital</h2>
+    
+    <h3 class="block-title">Position sur la S-Curve et Fuite en Avant sur le Crédit</h3>
+    <div class="analysis-box">
+      <p>L'acquisition traditionnelle est en phase de saturation avancée : le volume total des transactions (<span class="acronym" data-def="Total Payment Volume – volume brut des transactions de paiement">TPV</span>) n'a progressé que de <span class="num">+3% YoY au T2 2026</span> (à 133 milliards BRL). Pour afficher de la croissance, la direction accélère son exposition au crédit :</p>
+      <p>Le portefeuille de prêts atteint <span class="num">5,1 milliards BRL</span> (+31% sur un an). Les prêts de fonds de roulement non garantis aux PME explosent de <span class="num-pos">+204% YoY</span> (à 0,6 Md BRL), tandis que les cartes de crédit augmentent de +35% (à 1,1 Md BRL). En réponse immédiate, les dotations aux provisions pour créances douteuses bondissent de <span class="num-neg">+165% au S1 2026</span> (129,6 M BRL contre 48,9 M BRL au S1 2025). Accélérer sur le crédit PME non sécurisé au sommet du cycle de taux brésilien constitue une prise de risque pro-cyclique manifeste.</p>
+
+      <!-- INFOGRAPHIE PAGE 8 : FUITE EN AVANT CRÉDIT PME -->
+      <div class="infographic-box">
+        <img src="https://github.com/MIka-qualityvalue/analyses/blob/main/PagSeguro_Forensic_Autopsy-08.jpg?raw=true" alt="La Fuite en Avant sur le Crédit PME Non Sécurisé" class="infographic-img">
+        <div class="infographic-caption">Figure 9 : Envolée des Prêts Risqués face à la Stagnation du Cœur de Métier[cite: 1]</div>
+      </div>
+      
+      <p><em>CAC Payback :</em> Donnée non disponible dans les documents fournis pour le coût d'acquisition client unitaire isolé. Les dépenses de marketing s'élèvent à 425,0 M BRL au S1 2026 (-2,5% YoY), traduisant un tassement des investissements publicitaires.</p>
+      
+      <div class="plain-language-box">
+        <div class="plain-language-header">Ce que cela signifie pour l'actionnaire :</div>
+        <div class="plain-language-text">
+          Comme les commerçants n'achètent plus assez de terminaux, PagSeguro leur prête massivement de l'argent. Mais prêter sans garantie à des petits commerçants au Brésil avec des taux à 14% est très dangereux : les impayés ont déjà bondi de 165% en un an.
+        </div>
+      </div>
+    </div>
+
+    <h3 class="block-title">Le Siphon des SBC et l'Illusion des Rachats d'Actions</h3>
+    <div class="analysis-box">
+      <p>Au titre du plan LTIP-Goals, <span class="num">123,6 millions BRL</span> de rémunérations en actions ont été comptabilisées sur les douze derniers mois. Depuis la création du plan, <strong>11 345 743 actions de Classe A ont été distribuées gratuitement</strong> aux dirigeants. Les rachats d'actions massifs effectués en 2025 (1,33 Md BRL) et au S1 2026 (377,2 M BRL) n'ont créé aucune valeur par action pérenne : ils ont uniquement servi à neutraliser la dilution des attributions gratuites accordées au management.</p>
+
+      <!-- INFOGRAPHIE PAGE 9 : LE SIPHON ACTIONNARIAL -->
+      <div class="infographic-box">
+        <img src="https://github.com/MIka-qualityvalue/analyses/blob/main/PagSeguro_Forensic_Autopsy-09.jpg?raw=true" alt="Le Siphon Actionnarial : L'Illusion des Rachats" class="infographic-img">
+        <div class="infographic-caption">Figure 10 : La Cuve Percée des Rachats Neutralisant la Dilution des Actions Gratuites[cite: 1]</div>
+      </div>
+
+      <p>La direction promet de distribuer <span class="num">1,40 milliard BRL de dividendes en 2026</span>. Confrontée à un FCF semestriel de 855,0 M BRL (~1,71 Md BRL annualisé), cette promesse absorbe plus de 82% du cash disponible réel, privant l'entreprise des capitaux requis pour faire face à ses 42,80 Md BRL d'engagements de court terme.</p>
+    </div>
+
+    <h3 class="block-title">Gouvernance du Board et Verrouillage par la Holding UOL</h3>
+    <div class="analysis-box">
+      <p>Le conglomérat Universo Online S.A. (UOL), contrôlé par le groupe Folha et la famille Frias, détient le contrôle absolu des votes grâce aux <strong>actions de Classe B à 10 voix par action</strong>. Les actionnaires publics de Classe A cotés à New York ne disposent d'aucun contre-pouvoir.</p>
+      <p>Le comité LTIP qui distribue les actions gratuites est composé du président du conseil et de <strong>deux dirigeants directs d'UOL</strong>. En parallèle, PagSeguro a versé <span class="num-neg">202,9 millions BRL de prestations diverses à UOL</span> au S1 2026 (publicité, serveurs, refacturations de salaires) et rémunère 649,0 M BRL de dépôts appartenant à UOL à des taux allant jusqu'à 106% du CDI (Note 11).</p>
+
+      <!-- INFOGRAPHIE PAGE 10 : GOUVERNANCE CAPTIVE -->
+      <div class="infographic-box">
+        <img src="https://github.com/MIka-qualityvalue/analyses/blob/main/PagSeguro_Forensic_Autopsy-10.jpg?raw=true" alt="Gouvernance Captive : L'Étau UOL" class="infographic-img">
+        <div class="infographic-caption">Figure 11 : Les 3 Canaux d'Extraction Financière vers la Holding de Contrôle UOL[cite: 1]</div>
+      </div>
+      
+      <div class="verdict-mini-box">
+        <div class="verdict-mini-header">Verdict Gouvernance & Actionnariat</div>
+        <div class="verdict-mini-text">L'actionnaire individuel n'a aucun pouvoir. La maison-mère UOL possède 10 voix par action, nomme ses dirigeants, fixe ses bonus en actions gratuites et siphonne le cash via des refacturations de services internes.</div>
+      </div>
+    </div>
+
+    <div class="takeaway-box">
+      <div class="takeaway-label">À Retenir — Allocation du Capital</div>
+      <div class="takeaway-content">L'allocation du capital est subordonnée aux besoins d'extraction d'UOL via un dividende de 1,4 Md BRL absorbant le FCF réel, tandis que les rachats d'actions ne font que compenser la dilution de 11,35M d'actions distribuées gratuitement.</div>
+    </div>
+  </section>
+
+  <!-- AUDIT DE COMMANDEMENT (CARD ENCADRÉE) -->
+  <section class="content-card content-card-bordered-top">
+    <h2 class="section-header">Audit de Commandement : Bâtisseurs en Fuite</h2>
+    
+    <h3 class="block-title">Profils Exécutifs et Conflits d'Alignement</h3>
+    <div class="analysis-box">
+      <p>L'audit du <strong>Formulaire 20-F</strong> (Item 6) met en évidence une direction de mercenaires corporatifs sans détention capitalistique directe de leur poche :</p>
+      <ul class="custom-bullets">
+        <li><strong>Carlos Mauad (CEO) :</strong> Pur profil de banquier de détail, recruté pour transformer PagSeguro en établissement de crédit bancaire.</li>
+        <li><strong>Ricardo Dutra (Principal Executive Officer) :</strong> Homme lige représentant directement les intérêts patrimoniaux d'UOL au conseil.</li>
+        <li><strong>Gustavo Bahia Sechin (CFO, CAO et IRO) :</strong> Cumul des postes de directeur financier, chef comptable et directeur des relations investisseurs, créant une concentration excessive du contrôle financier.</li>
+      </ul>
+    </div>
+
+    <div class="management-quote-block">
+      <blockquote>« There is a price to be paid on the churn that we had to manage later last year... we are much more confident on this balance between growth and defending profitability. »</blockquote>
+      <div class="quote-attribution">Carlos Mauad — CEO, Earnings Call Q2 2026 (11 Août 2026)</div>
+      <div class="decoding-container">
+        <div class="decoding-tag">DÉCODAGE DE L'INITIÉ</div>
+        <div class="decoding-text">Le management admet à demi-mot que le pricing power est une fiction : toute tentative de relever les tarifs fait fuir les commerçants chez StoneCo, contraignant PagSeguro à geler ses prix au détriment de sa croissance réelle.</div>
+      </div>
+    </div>
+
+    <!-- INFOGRAPHIE PAGE 11 : AUDIT DE DIRECTION & PROMESSES BRISÉES -->
+    <div class="infographic-box">
+      <img src="https://github.com/MIka-qualityvalue/analyses/blob/main/PagSeguro_Forensic_Autopsy-11.jpg?raw=true" alt="Audit de Direction : Promesses Brisées" class="infographic-img">
+      <div class="infographic-caption">Figure 12 : Matrice de Back-Testing des Engagements Historiques du Management[cite: 1]</div>
+    </div>
+
+    <h3 class="block-title">Rémunération, Climat Interne et Key Man Risk</h3>
+    <div class="analysis-box">
+      <p>La rémunération globale de la direction s'est élevée à 53,5 millions BRL en 2025. Les bonus et attributions d'actions du plan LTIP-Goals ne sont indexés ni sur le ROE/ROTCE, ni sur le FCF par action, mais sur des métriques comptables Non-GAAP et des volumes de transaction (TPV).</p>
+      <p><em>Insider Sales :</em> Donnée non disponible dans les documents fournis pour le registre individuel des ventes sur le marché secondaire. Le filing 20-F confirme en revanche la distribution de 11,35M de titres sans déboursement de fonds.</p>
+      <p><em>Climat Interne :</em> Donnée non disponible dans les documents fournis pour les scores Glassdoor. Sur le plan organisationnel, Enrique Fragata a été nommé nouveau COO (Chief Operating Officer) au T2 2026 pour restructurer les opérations.</p>
+      <p><em>Key Man Risk :</em> Le risque critique réside dans la tutelle d'UOL. La direction de PagSeguro n'a aucune autonomie stratégique pour refuser les ponctions de cash décidées par sa maison-mère.</p>
+    </div>
+
+    <div class="takeaway-box">
+      <div class="takeaway-label">À Retenir — Gouvernance</div>
+      <div class="takeaway-content">Une direction sans capitaux propres personnels engagés, dont les primes sont immunisées contre la chute du FCF réel et dont l'allégeance va exclusivement à la holding de contrôle UOL.</div>
+    </div>
+  </section>
+
+  <!-- L'ENTONNOIR DE L'INITIÉ (CARD ENCADRÉE) -->
+  <section class="content-card content-card-bordered-top">
+    <h2 class="section-header">L'Entonnoir de l'Initié (Synthèse Globale)</h2>
+    
+    <p>L'évaluation consolidée attribue à PagSeguro un score de qualité intrinsèque de <span class="num-neg">34 / 100</span>, grevé par l'activation d'un double <strong>SOFT STOP</strong> (en U4 sur la confiscation du capital et en U7 sur la gouvernance captive) :</p>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Pilier de Qualité Fondamentale</th>
+            <th class="col-center">Score /20</th>
+            <th>Principal Élément Négatif (Red Flag)</th>
+            <th>Principal Élément Positif (Green Flag)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. Intégrité & Rentabilité Réelle</strong></td>
+            <td class="col-center num">11 / 20</td>
+            <td>FCF semestriel en chute de -62,4% et 610,7 M BRL de R&D capitalisés.</td>
+            <td>Conformité aux règles comptables sous mandat SEC Form 6-K.</td>
+          </tr>
+          <tr>
+            <td><strong>2. Moat & Dynamique Concurrentielle</strong></td>
+            <td class="col-center num-neg">9 / 20</td>
+            <td>Pricing power nul et croissance réelle du chiffre d'affaires à -2,7%.</td>
+            <td>43 Md BRL de dépôts bancaires stabilisant le coût du passif.</td>
+          </tr>
+          <tr>
+            <td><strong>3. Résilience du Bilan</strong></td>
+            <td class="col-center num-neg">9 / 20</td>
+            <td>Couverture d'intérêts à 1,48x et mur d'engagements de 42,8 Md BRL à &le; 12m.</td>
+            <td>56,6 Md BRL de créances sur émetteurs de cartes de 1er rang.</td>
+          </tr>
+          <tr>
+            <td><strong>4. Gouvernance & Allocation</strong></td>
+            <td class="col-center num-neg">7 / 20</td>
+            <td>Verrou UOL à 10 voix/action et 11,35M d'actions gratuites distribuées.</td>
+            <td>Respect des ratios prudentiels bancaires (Bâle III à 22,5%).</td>
+          </tr>
+          <tr>
+            <td><strong>5. Pérennité & Antifragilité</strong></td>
+            <td class="col-center num-neg">8 / 20</td>
+            <td>Désintermédiation par PIX/Drex et 1,30 Md BRL de litiges fiscaux.</td>
+            <td>Licence bancaire BancoSeguro pleinement opérationnelle.</td>
+          </tr>
+          <tr style="background-color: var(--bg-surface-elevated); font-weight: 700;">
+            <td><strong>Score Consolidé Brut</strong></td>
+            <td class="col-center num">44 / 100</td>
+            <td colspan="2">Malus de Fragilité Transversale appliqué (-10 points car 4 piliers &lt; 10/20).</td>
+          </tr>
+          <tr style="background-color: var(--color-negative-bg); font-weight: 800;">
+            <td style="color: #f87171;">NOTE GLOBALE DE QUALITÉ</td>
+            <td class="col-center num-neg" style="font-size: 16px;">34 / 100</td>
+            <td colspan="2" style="color: #f87171;">Médiocrité structurelle — Double SOFT STOP validé.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- GRILLE FORCES / FAIBLESSES ENCADRÉE -->
+    <div class="grid-2col">
+      <div class="sub-box positive-edge">
+        <div class="sub-box-title positive">Green Flags Consolidés</div>
+        <ul class="custom-bullets">
+          <li><strong>Base de Dépôts Captive :</strong> 42,79 milliards BRL de dépôts permettant de stabiliser le coût de refinancement bancaire à 83% du taux CDI.</li>
+          <li><strong>Solvabilité Réglementaire :</strong> Ratio de Bâle III ajusté à 22,5%, préservant les coussins prudentiels exigés par la Banque centrale du Brésil.</li>
+        </ul>
+      </div>
+      <div class="sub-box critical-edge">
+        <div class="sub-box-title critical">Red Flags Majeurs</div>
+        <ul class="custom-bullets">
+          <li><strong>Effondrement du Cash Libre :</strong> FCF semestriel écroulé de -62,4% à 855 M BRL face à une promesse de dividende annuel de 1,40 Md BRL.</li>
+          <li><strong>Asphyxie par la Dette & Taux :</strong> Couverture d'intérêts EBIT / Charges Financières à 1,48x et asymétrie nette de 41,4 Md BRL au taux CDI.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="analysis-box">
+      <p><strong>Toxicité Comptable (6,5/10) :</strong> Activation systématique des dépenses technologiques et dépendance à la niche fiscale de la <em>Lei do Bem</em>.</p>
+      <p><strong>Suspicion de Fraude (5,0/10) :</strong> Pas de fraude ouverte, mais une opacité entretenue sur les flux intra-groupe refacturés par UOL (202,9 M BRL).</p>
+      <p><strong>Value Trap (8,0/10) :</strong> Multiple d'apparence bradé (PER 6,6x) masquant un ROE inférieur au coût des fonds propres et une croissance organique anémique.</p>
+    </div>
+
+    <div class="takeaway-box">
+      <div class="takeaway-label">À Retenir — Synthèse Qualité</div>
+      <div class="takeaway-content">Le dossier échoue sur 4 des 5 piliers de qualité. L'entreprise est une commodité financière bridée par les taux brésiliens et verrouillée par un actionnaire de contrôle insatiable.</div>
+    </div>
+  </section>
+
+  <!-- VALORISATION, CONFLUENCE ET SIZING (CARD ENCADRÉE) -->
+  <section class="content-card content-card-bordered-top">
+    <h2 class="section-header">Valorisation, Confluence et Sizing (Synthèse Finale)</h2>
+    
+    <h3 class="block-title">Modélisation Financière : Scénarios DCF & Multiples</h3>
+    <div class="analysis-box">
+      <p>Au cours de référence de <span class="num">9,50 USD</span> (capitalisation de 2,76 Md USD / 14,30 Md BRL, BPA TTM à 1,43 USD), le <strong>Reverse DCF</strong> (actualisation 10%, croissance terminale 2%) indique que le marché intègre déjà une <strong>décroissance annuelle du FCF de -4,01% sur 10 ans</strong>. Le marché a acté la fin de la croissance.</p>
+      <p>Après application d'une pénalité de -25% sur le multiple de sortie médian (couverture d'intérêts &lt; 3x et ROE &lt; K<sub>e</sub>), le multiple de sortie normé est abaissé à <span class="num">6,0x</span>. Voici la matrice <span class="acronym" data-def="Discounted Cash Flow – valorisation par actualisation des flux futurs">DCF</span> retraitée sur 5 ans :</p>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Scénario</th>
+            <th class="col-center">Pondération</th>
+            <th class="col-center">CAGR Retenu</th>
+            <th class="col-center">Multiple Final</th>
+            <th class="col-right">Prix Théo</th>
+            <th class="col-center"><span class="acronym" data-def="Marge de Sécurité – décote de prudence appliquée">MdS</span></th>
+            <th class="col-right">PRIX SÉCURISÉ</th>
+            <th class="col-right">CAGR Prix (5 ans)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🔴 <strong>Pessimiste</strong></td>
+            <td class="col-center col-mono">30%</td>
+            <td class="col-center col-mono">0,0%</td>
+            <td class="col-center col-mono">5,0x</td>
+            <td class="col-right col-mono">$7,15</td>
+            <td class="col-center col-mono">15%</td>
+            <td class="col-right col-mono num-neg">$6,08</td>
+            <td class="col-right col-mono num-neg">-8,55% / an</td>
+          </tr>
+          <tr>
+            <td>🟡 <strong>Réaliste</strong></td>
+            <td class="col-center col-mono">50%</td>
+            <td class="col-center col-mono">4,0%</td>
+            <td class="col-center col-mono">6,0x</td>
+            <td class="col-right col-mono">$10,44</td>
+            <td class="col-center col-mono">20%</td>
+            <td class="col-right col-mono num">$8,35</td>
+            <td class="col-right col-mono num-neg">-2,55% / an</td>
+          </tr>
+          <tr>
+            <td>🟢 <strong>Optimiste</strong></td>
+            <td class="col-center col-mono">20%</td>
+            <td class="col-center col-mono">8,0%</td>
+            <td class="col-center col-mono">7,5x</td>
+            <td class="col-right col-mono">$15,76</td>
+            <td class="col-center col-mono">25%</td>
+            <td class="col-right col-mono num-pos">$11,82</td>
+            <td class="col-right col-mono num-pos">+4,46% / an</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- INFOGRAPHIE PAGE 12 (VALORISATION) : L'ANATOMIE DU FAUX PER -->
+    <div class="infographic-box">
+      <img src="https://github.com/MIka-qualityvalue/analyses/blob/main/PagSeguro_Forensic_Autopsy-12.jpg?raw=true" alt="Valorisation : L'Anatomie du Faux PER" class="infographic-img">
+      <div class="infographic-caption">Figure 13 : Décomposition Mathématique du PER de 6,6x et Application des Pénalités[cite: 1]</div>
+    </div>
+
+    <div class="analysis-box">
+      <p><strong>CAGR du Cours Pondéré :</strong> <span class="num-neg">-2,94% par an</span>.<br>
+      <strong>Rendement du Dividende (Yield) :</strong> <span class="num-pos">+9,80% par an</span> (sous l'hypothèse très risquée du maintien de l'enveloppe de 1,4 Md BRL).<br>
+      <strong><span class="acronym" data-def="Total Shareholder Return – retour total pour l'actionnaire (cours + dividende)">TSR</span> Final Pondéré :</strong> <span class="num-warn">+6,86% par an</span> (inférieur au seuil minimal d'exigence de 8%).</p>
+      
+      <div class="plain-language-box">
+        <div class="plain-language-header">Ce que cela signifie pour l'actionnaire :</div>
+        <div class="plain-language-text">
+          En prenant en compte tous les scénarios, l'action risque de perdre environ 2,9% de sa valeur par an. Même si l'entreprise verse ses 9,8% de dividendes, votre gain net total ne serait que de 6,8% par an. C'est beaucoup trop faible pour compenser le risque élevé du Brésil et des taux à 14%.
+        </div>
+      </div>
+    </div>
+
+    <h3 class="block-title">Confluence des Risques (Verdict Lollapalooza)</h3>
+    <div class="analysis-box">
+      <p><strong>Verdict : 🔴 CRITIQUE (Spirale Auto-Renforçante).</strong> La panne de croissance sur les paiements (+1,8%) pousse la direction à accélérer sur le crédit PME (+204%) sous un taux Selic à 13,90%. La hausse des impayés (+165%) et des charges financières (couverture à 1,48x) comprime le FCF réel (-62,4%), rendant le dividende promis de 1,4 Md BRL incompatible avec la solidité du bilan.</p>
+
+      <!-- INFOGRAPHIE PAGE 13 : EFFET LOLLAPALOOZA -->
+      <div class="infographic-box">
+        <img src="https://github.com/MIka-qualityvalue/analyses/blob/main/PagSeguro_Forensic_Autopsy-13.jpg?raw=true" alt="L'Effet Lollapalooza : La Spirale Destructrice" class="infographic-img">
+        <div class="infographic-caption">Figure 14 : La Spirale Négative Auto-Renforçante (PIX, Crédit PME, Dividendes UOL)[cite: 1]</div>
+      </div>
+    </div>
+
+    <h3 class="block-title">Thèse Short (L'Avocat du Diable)</h3>
+    <div class="analysis-box">
+      <p>Le vendeur institutionnel sait que le PER de 6,6x est un mirage. Si les taux brésiliens restent au-dessus de 13% pendant que les défauts de crédit PME s'accélèrent, le résultat net sera anéanti. La direction sera obligée de <strong>suspendre immédiatement son dividende</strong> pour préserver son ratio de Bâle III, provoquant la capitulation des fonds de rendement et une chute de l'action vers les <strong>5,50 $ - 6,00 $</strong>.</p>
+    </div>
+
+    <!-- MATRICE DE SURVEILLANCE / CHECKLIST ENCADRÉE -->
+    <div class="risk-grid">
+      <div class="risk-card level-critical">
+        <span class="risk-tag critical">Critique</span>
+        <div class="risk-title">Couverture EBIT / Intérêts</div>
+        <div class="risk-text">Surveiller si le ratio passe sous 1,30x, signalant une asphyxie immédiate sous le taux Selic.</div>
+        <div class="risk-kpi-watch">Échéance : Résultats T3 2026</div>
+      </div>
+      <div class="risk-card level-critical">
+        <span class="risk-tag critical">Critique</span>
+        <div class="risk-title">Provisions Prêts & NPL 90</div>
+        <div class="risk-text">Traquer tout dépassement des 4,0% d'impayés sur le portefeuille de crédit PME en expansion.</div>
+        <div class="risk-kpi-watch">Échéance : Clôture Annuelle 2026</div>
+      </div>
+      <div class="risk-card level-important">
+        <span class="risk-tag warning">Important</span>
+        <div class="risk-title">Paiement Réel du Dividende</div>
+        <div class="risk-text">Vérifier si le reliquat des 1,40 Md BRL est versé ou si une coupe conservatrice est actée.</div>
+        <div class="risk-kpi-watch">Échéance : Février 2027</div>
+      </div>
+    </div>
+
+    <!-- VERDICT FINAL BLOCK -->
+    <div class="final-verdict-box">
+      <div class="verdict-top-bar">
+        <div>
+          <div class="verdict-decision-tag">SENTENCE DU TRIBUNAL D'INVESTISSEMENT</div>
+          <div class="verdict-decision-main">EXCLUSION DÉFINITIVE (REJET)</div>
+        </div>
+        <div class="verdict-scores-strip">
+          <div class="v-score-item">
+            <div class="v-score-label">Sizing Recommandé</div>
+            <div class="v-score-val" style="color: #f87171;">0 %</div>
+          </div>
+          <div class="v-score-item">
+            <div class="v-score-label">Quality Value</div>
+            <div class="v-score-val">34 / 100</div>
+          </div>
+          <div class="v-score-item">
+            <div class="v-score-label">Cours Cible (5A)</div>
+            <div class="v-score-val">8,35 $</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INFOGRAPHIE PAGE 14 : VERDICT FINAL & SIZING -->
+      <div class="infographic-box" style="margin-bottom: 24px;">
+        <img src="https://github.com/MIka-qualityvalue/analyses/blob/main/PagSeguro_Forensic_Autopsy-15.jpg?raw=true" alt="Verdict Final et Sizing d'Allocation" class="infographic-img">
+        <div class="infographic-caption">Figure 15 : Tampon d'Arbitrage Final et Conditions d'Invalidation[cite: 1]</div>
+      </div>
+      
+      <div class="verdict-columns">
+        <div class="verdict-col danger">
+          <h4>3 Killer Risks (Motifs de Rejet)</h4>
+          <ul class="verdict-list danger-list">
+            <li><strong>Asphyxie Financière :</strong> Couverture d'intérêts à 1,48x et asymétrie de -41,4 Md BRL au taux CDI rendant le bilan incapable d'absorber des taux élevés durables.</li>
+            <li><strong>Dividende Insoutenable :</strong> Le dividende de 1,4 Md BRL absorbe 82% du FCF réel et sera supprimé en cas de choc de crédit PME.</li>
+            <li><strong>Cadenas UOL :</strong> Contrôle total à 10 voix/action permettant le siphonnage du cash via refacturations et attributions gratuites de capital.</li>
+          </ul>
+        </div>
+        <div class="verdict-col invalidation">
+          <h4>3 Conditions d'Invalidation du Rejet</h4>
+          <ul class="verdict-list invalidation-list">
+            <li><strong>Baisse Durable du Taux Selic &lt; 10% :</strong> Détente restaurant la marge d'intermédiation et portant la couverture des intérêts au-delà de 3,0x.</li>
+            <li><strong>Monétisation Prouvée de PIX :</strong> Croissance réelle du chiffre d'affaires supérieure à 10% sans perte de parts de marché.</li>
+            <li><strong>Réforme de Gouvernance :</strong> Unification des actions à droit de vote unique (1:1) et fin des conventions opaques avec UOL.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOT DE LA FIN -->
+  <div class="management-quote-block" style="margin-top: 40px; border-left-color: var(--color-accent);">
+    <blockquote>« Acheter PagSeguro aujourd'hui au motif que l'action n'est “pas chère” revient à monter à bord d'un navire dont le gouvernail est confisqué par une holding, dont les cales prennent l'eau des taux d'intérêt, et dont le capitaine distribue les canots de sauvetage en bonus à ses officiers avant même d'avoir atteint la zone de tempête. Le capital patient mérite de meilleurs destins. »</blockquote>
+    <div class="quote-attribution">Comité d'Arbitrage des Risques & Allocation // Clôture du Dossier PAGS</div>
+  </div>
+
+</main>
+
+</body>
+</html>
